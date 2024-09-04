@@ -21,12 +21,15 @@ class Board:
 
     def setear_piezas(self):
         self.__positions__ [0,0] = Rook("White",(0,0))
-        self.__positions__ [1,0] = Knight("White", (1,0))
-        self.__positions__ [2,0] = Bishoop("Bishop",(2,0))               
-        self.__positions__ [3,0] = Queen("Queen",(3,0))       
-        self.__positions__ [4,0] = King("King",(4,0))
-        self.__positions__ [3,0] = Bishoop("",(5,0))       
-        self.__positions__ [4,0] = Knight("Knight",(6,0))       
+        self.__positions__ [1,0] = Knight("white", (1,0))
+        self.__positions__ [2,0] = Bishoop("white",(2,0))               
+        self.__positions__ [3,0] = Queen("white",(3,0))       
+        self.__positions__ [4,0] = King("white",(4,0))
+        self.__positions__ [3,0] = Bishoop("white",(5,0))       
+        self.__positions__ [4,0] = Knight("white",(6,0))       
         self.__positions__ [7,0] = Rook("White",(7,0))
+
+        for i in range (8):
+            self.__positions__ = Pawn ("White", (i,1))
 
         

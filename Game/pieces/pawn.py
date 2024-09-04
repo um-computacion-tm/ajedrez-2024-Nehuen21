@@ -3,13 +3,10 @@ from piece import Piece
 
 class Pawn(Piece):
     
-    def __init__(self, position, color):
-        super().__init__(position, color)
+    def __init__(self,color, position,):
+        super().__init__(color,position)
         self.has_moved = False
-        self.can_en_passant = False
-        self.promoted = False
-        self.promotion_choice = None
-        self.direction = 1 if color == 'white' else -1
+        
 
     def move(self, new_position):
         # Lógica para mover el peón

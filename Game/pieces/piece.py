@@ -1,22 +1,32 @@
 class Piece:
-    def __init__(self, color,movimiento):
+    def __init__(self, color,position):
         self.__color__ = color
-        self.__movimiento__ = movimiento
+        self.__position__ = position
 
     def get_color(self):
         """Devuelve el color de la pieza."""
         return self.__color__
 
-    def get_movimiento(self):
-        """Devuelve los posibles movimientos de la pieza."""
-        return self.__movimiento__
+    def get_position(self):
+        return self.__position__
 
-    def mover(self, nueva_posicion):
-        """Mueve la pieza a una nueva posición."""
-        # Aquí puedes agregar la lógica para verificar si el movimiento es válido
-        # y luego actualizar la posición de la pieza.
-        print(f"Moviendo la pieza a la posición {nueva_posicion}")
+    def check_position(self,new_position):           #Nueva posicion
+        self.__position__ = new_position
 
-    def set_color(self, nuevo_color):
-        """Cambia el color de la pieza."""
-        self.__color__ = nuevo_color
+    def __str__(self):
+        return " "
+    
+    def check_move(self,positions,new_positions):
+        return True
+    
+    def obtener_coordenadas(self,positions,new_positions):
+        x,y = new_positions
+
+    @property
+    def get_color(self) -> str:
+        return self.__color__
+        
+
+    
+    
+
