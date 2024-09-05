@@ -24,9 +24,17 @@ class Test_setear_pieza(unittest.TestCase):
         self.assertEqual(self.testboard.__positions__[0][7].get_color,"white")
         self.assertEqual(self.testboard.__positions__[7][7].get_color, "white")
 
+    def Test_knight_white(self):
+        self.assertEqual(self.testboard.__positions__[0][2].get_color,"white")
+        self.assertEqual(self.testboard.__positions__[0][6].get_color, "white")
+
+    def Test_knight_white(self):
+        self.assertEqual(self.testboard.__positions__[7][2].get_color,"black")
+        self.assertEqual(self.testboard.__positions__[7][6].get_color, "black")
 
 
-
-
+    def test_obtn_pieza(self):
+        self.assertIsInstance(self.tablerodeprueba.obtn_pieza(0,7),Rook)
+        self.assertEqual(self.tablerodeprueba.obtn_pieza(4,4),None)
 if __name__ == '__main__':
     unittest.main()
