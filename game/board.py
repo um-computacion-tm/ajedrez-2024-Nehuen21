@@ -1,12 +1,13 @@
-from pieces.rook import Rook
-from pieces.king import King
-from pieces.pawn import Pawn
-from pieces.queen import Queen
-from pieces.bishoop import Bishoop
-from pieces.knight import Knight
+from rook import Rook
+from king import King
+from pawn import Pawn
+from queen import Queen
+from bishoop import Bishoop
+from knight import Knight
+from piece import Piece
 
 class Board:
-    def __init__(self):
+    def __init__(self,positions):
 
         self._positions = []
         for _ in range(8):

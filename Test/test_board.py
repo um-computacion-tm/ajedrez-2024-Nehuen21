@@ -1,9 +1,7 @@
 import unittest
 from  game.board import Board
-from game.pieces.rook import Rook
-
-
-
+from game.rook import Rook
+from game.piece import Piece
 
 class Test_setear_pieza(unittest.TestCase):
 
@@ -38,3 +36,4 @@ class Test_setear_pieza(unittest.TestCase):
         self.assertEqual(self.tablerodeprueba.obtn_pieza(4,4),None)
 if __name__ == '__main__':
     unittest.main()
+
