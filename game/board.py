@@ -1,10 +1,10 @@
-from rook import Rook
+from game.torre import Rook
 from king import King
 from pawn import Pawn
 from queen import Queen
 from bishoop import Bishoop
 from knight import Knight
-from piece import Piece
+from game.pieza import Piece
 
 class Board:
     def __init__(self,positions):

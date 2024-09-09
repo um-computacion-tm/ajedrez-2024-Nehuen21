@@ -1,7 +1,7 @@
 import unittest
 from  board import Board
-from rook import Rook
-from piece import Piece
+from game.torre import Rook
+from game.pieza import Piece
 
 class Test_setear_pieza(unittest.TestCase):
 

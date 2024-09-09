@@ -1,4 +1,4 @@
-from piece import Piece
+from game.pieza import Piece
 
 
 class Pawn(Piece):
