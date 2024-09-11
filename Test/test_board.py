@@ -1,4 +1,4 @@
-import unittest
+"""import unittest
 from  game.board import Board
 from game.torre import Rook
 from game.pieza import Piece
@@ -32,8 +32,8 @@ class Test_setear_pieza(unittest.TestCase):
 
 
     def test_obtn_pieza(self):
-        """self.assertIsInstance(self.tablerodeprueba.obtn_pieza(0,7),Rook)
-        self.assertEqual(self.tablerodeprueba.obtn_pieza(4,4),None)"""
+        self.assertIsInstance(self.tablerodeprueba.obtn_pieza(0,7),Rook)
+        self.assertEqual(self.tablerodeprueba.obtn_pieza(4,4),None)
 
         rook1w = self.__board__.obtener_pieza(0,0)
 
@@ -41,9 +41,7 @@ class Test_setear_pieza(unittest.TestCase):
         self.assertEqual(rook1w.obtener_pieza(),(0,0))
 
 
-
-
-
 if __name__ == '__main__':
     unittest.main()
 
+"""

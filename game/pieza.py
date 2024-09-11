@@ -3,8 +3,8 @@ class Pieza:
         self.__color__ = color
         self.__posicion__ = posicion
 
-    def dame_color(self):
-        """Devuelve el color de la pieza."""
+    def decime_color(self):
+        
         return self.__color__
 
     def dame_posicion(self):
