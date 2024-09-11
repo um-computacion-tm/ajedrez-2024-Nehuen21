@@ -19,7 +19,7 @@ class TestPieza(unittest.TestCase):
     def test_setear_posicion(self):
         nueva_posicion = (1,1)
         self.__Pieza__.setear_posicion(nueva_posicion)
-        self.assertEqual(self.__Pieza__.dame_posicion,nueva_posicion(1,1))
+        self.assertEqual(self.__Pieza__.dame_posicion(),nueva_posicion)
 
     
 
