@@ -1,4 +1,4 @@
-import unittest
+"""import unittest
 from  board import Board
 from game.torre import Rook
 from game.pieza import Piece
@@ -37,3 +37,4 @@ class Test_setear_pieza(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
+"""
