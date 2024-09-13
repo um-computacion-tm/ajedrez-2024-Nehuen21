@@ -27,9 +27,6 @@ class TestPieza(unittest.TestCase):
         self.assertEqual(self.__Pieza__.__current_y__,y_nueva)
 
     
-    
-
-        
-        
+          
 if __name__ == '__main__':
     unittest.main()
