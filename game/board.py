@@ -4,7 +4,7 @@ from pawn import Pawn
 from queen import Queen
 from bishoop import Bishoop
 from knight import Knight
-from game.pieza import Piece
+from game.pieza import Pieza
 
 class Board:
     def __init__(self,positions):
@@ -42,6 +42,9 @@ class Board:
         self.__positions__ [7,5] = Bishoop("black",(7,5))       
         self.__positions__ [7,6] = Knight("black",(7,6))       
         self.__positions__ [7,7] = Torre("black",(7,7))
+
+        def get_piece(self, row, col):              
+            return self.__positions__[row][col]
 
 
 
