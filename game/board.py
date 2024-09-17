@@ -43,8 +43,11 @@ class Board:
         self.__positions__ [7,6] = Knight("black",(7,6))       
         self.__positions__ [7,7] = Torre("black",(7,7))
 
-        def get_piece(self, row, col):              
-            return self.__positions__[row][col]
+        def setear_pieza(self,col,fila):
+            self.__positions__ = [col],[fila]
+
+        
+
 
 
 
