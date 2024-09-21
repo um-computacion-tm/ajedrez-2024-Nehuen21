@@ -1,9 +1,9 @@
 from game.torre import Torre
-from king import King
-from pawn import Pawn
-from queen import Queen
-from bishoop import Bishoop
-from knight import Knight
+from game.king import King
+from game.pawn import Pawn
+from game.queen import Queen
+from game.bishoop import Bishoop
+from game.knight import Knight
 from game.pieza import Pieza
 
 class Board:
@@ -43,8 +43,50 @@ class Board:
         self.__positions__ [7,6] = Knight("black",(7,6))       
         self.__positions__ [7,7] = Torre("black",(7,7))
 
-        def setear_pieza(self,col,fila):
-            self.__positions__ = [col],[fila]
+        def __str__ (self):
+         def crear_linea_etiquetas_columnas():
+            columnas = [chr(i) for i in range(ord('a'), ord('h') + 1)]
+            return "    " + "   ".join(columnas) + "\n"
+        
+         def crear_linea_superior_inferior(es_inferior=False):
+            if es_inferior:
+                return "  " + "└" + "───┴" * 7 + "───┘" + "\n"
+            return "  " + "┌" + "───┬" * 7 + "───┐" + "\n"
+
+         def crear_linea_separadora():
+            return "  " + "├" + "───┼" * 7 + "───┤" + "\n"
+
+         def crear_fila_con_piezas(fila, numero_fila):
+            fila_str = f" {numero_fila} │"
+            for pieza in fila:
+                if pieza is None:
+                    fila_str += "   │"
+                else:
+                    fila_str += f" {str(pieza)} │"
+            return fila_str + f" {numero_fila}\n"
+
+        # Construcción del tablero
+         tablero = []
+         tablero.append(crear_linea_etiquetas_columnas())
+         tablero.append(crear_linea_superior_inferior())
+
+         for fila_index in range(8):
+            fila_actual = self._positions[fila_index]
+            tablero.append(crear_fila_con_piezas(fila_actual, 8 - fila_index))
+            if fila_index != 7:
+                tablero.append(crear_linea_separadora())
+
+         tablero.append(crear_linea_superior_inferior(es_inferior=True))
+         tablero.append(crear_linea_etiquetas_columnas())
+
+         return "".join(tablero)
+    
+
+if __name__ == '__main__':
+
+    tablero = Board()
+    tablero.setear_piezas()
+    print(tablero)
 
         
 

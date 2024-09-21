@@ -1,8 +1,8 @@
-from piece import Piece
+from game.pieza import Piece
 
-class Rook(Piece):
-    def __init__(self, color, position):
-        super().__init__(color, position)
+class Torre(Piece):
+    def __init__(self, color, posicion):
+        super().__init__(color, posicion)
 
     def move(self,new_position):
         pass
