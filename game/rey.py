@@ -1,6 +1,6 @@
-from game.pieza import Piece
+from game.pieza import Pieza
 
-class King(Piece):
+class Rey(Pieza):
 
     def __init__(self,posicion_inicial,color):
         self.posicion_actual = posicion_inicial

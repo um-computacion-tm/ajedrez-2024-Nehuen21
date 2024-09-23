@@ -1,6 +1,6 @@
 from game.pieza import Piece
 
-class Bishoop(Piece):
+class Alfil(Piece):
 
     def __init__(self,color,position):
         super().__init__(color,position)

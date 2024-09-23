@@ -1,7 +1,7 @@
 from game.pieza import Pieza
 
 
-class Pawn(Pieza):
+class Peon(Pieza):
     
     def __init__(self,color, position,):
         super().__init__(color,position)

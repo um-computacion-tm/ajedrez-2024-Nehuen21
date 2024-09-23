@@ -1,4 +1,6 @@
+#Check
 class Pieza:
+
     def __init__(self,color,x,y):
         self.__color__ = color
         self.__current_x__ =  x
@@ -16,12 +18,3 @@ class Pieza:
 
     def __str__(self) :
         return ""
-
-    @property
-    def get_color(self) -> str:
-        return self.__color__
-        
-
-    
-    
-
