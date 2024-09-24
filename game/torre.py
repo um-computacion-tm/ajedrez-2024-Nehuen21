@@ -1,9 +1,12 @@
-from game.pieza import Piece
+from game.pieza import Pieza
 
-class Torre(Piece):
-    def __init__(self, color, posicion):
-        super().__init__(color, posicion)
+class Torre(Pieza):
+    def __init__(self,color,x,y):
+        super().__init__(color,x,y)
 
-    def move(self,new_position):
-        pass
+    def __str__(self):
+        return "♜" if self.__color__ == "blanco" else "♖"
+    
 
+
+  

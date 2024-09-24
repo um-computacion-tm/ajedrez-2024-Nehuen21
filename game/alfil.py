@@ -1,6 +1,6 @@
-from game.pieza import Piece
+from game.pieza import Pieza
 
-class Alfil(Piece):
+class Alfil(Pieza):
 
     def __init__(self,color,position):
         super().__init__(color,position)

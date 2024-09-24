@@ -1,17 +1,8 @@
 from game.pieza import Pieza
 
-class Rey(Pieza):
+class Rey(Pieza) : 
+    def __init__(self,color,x,y):
+        super().__init__(color,x,y)
 
-    def __init__(self,posicion_inicial,color):
-        self.posicion_actual = posicion_inicial
-        self.color = color
-        self.movimientos = 0
-        self.en_jake = False
-
-def mover(self, posicion_destino):
-        if self.es_movimiento_legal(posicion_destino):
-            self.posicion_actual = posicion_destino
-            self.movimientos += 1
-            
-        else:
-            raise ValueError("Movimiento ilegal para el rey.")
+    def __str__(self):
+        return "♚" if self.__color__ == "blanco" else "♔"
