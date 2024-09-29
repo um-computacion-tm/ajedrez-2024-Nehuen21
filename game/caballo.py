@@ -1,7 +1,10 @@
 from game.pieza import Pieza
 class Caballo(Pieza):
-    def __init__(self, color, position):
-        super().__init__(color, position)
-        
-    def move(self,new_position):
+    def __init__(self,color,x,y):
+        super().__init__(color,x,y)
+
+    def __str__(self):
+        return "♘" if self.__color__ == "blanco" else "♞"
+
+    def movimiento_valido(self):
         pass

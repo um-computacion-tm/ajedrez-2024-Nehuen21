@@ -5,4 +5,4 @@ class Reina(Pieza):
         super().__init__(color,x,y)
 
     def __str__(self):
-        return "♛" if self.__color__ == "blanco" else "♕"
+        return "♕" if self.__color__ == "blanco" else "♛"
