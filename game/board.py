@@ -12,9 +12,12 @@ class Board:
         # Inicializa el tablero 8x8 con None
         self._positions = [[None for _ in range(8)] for _ in range(8)]
 
-    def obtener_pieza(self, fila, columna):
+    def obtener_pieza(self, x, y):
         """Obtiene la pieza en una posición dada."""
-        return self._positions[fila][columna]
+        if 0 <= x < 8 and 0 <= y < 8:    
+            return self._positions[x][y]
+        else :
+            raise ValueError("Las coordenadas estan fuera del tablero")
 
     def setear_piezas(self):
         """Coloca las piezas en sus posiciones iniciales."""
