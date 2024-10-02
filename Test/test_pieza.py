@@ -44,6 +44,25 @@ class TestPieza(unittest.TestCase):
 
         self.assertTrue(resultado)
 
+    def test_movimiento_horizontal_valido(self):
+        # Limpiamos la fila 0 para que no haya piezas en el camino
+        self.board._positions[0][0] = [None]  # Aseguramos que no haya piezas en la fila 0
+        self.board._positions [1][0] = [None]
+        # Colocamos la pieza en la posición inicial
+        self.board._positions[0][0] = self.__Pieza__  # Posición (0, 0)
+
+        # Verificamos que el movimiento de (0, 0) a (7, 0) sea válido
+        resultado = self.__Pieza__.movimiento_horizontal(0, 0, 1, 0, self.board)
+        self.assertTrue(resultado)  # Esto debería pasar si el camino está libre
+
+    def test_movimiento_horizontal_invalido(self):
+        # Colocamos una pieza en el camino en la fila 0
+        self.board._positions[0][3] = Pieza("negro", 3, 0)
+
+        # Verificamos que el movimiento horizontal no es válido porque hay una pieza en el camino
+        resultado = self.__Pieza__.camino_horizontal_libre(0, 0, 7, 0, self.board)
+        self.assertFalse(resultado)
+
     
           
 if __name__ == '__main__':

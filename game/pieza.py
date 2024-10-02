@@ -42,3 +42,16 @@ class Pieza:
                 if board.obtener_pieza(x,fila) is not None:
                     return False
         return True
+    
+    def movimiento_horizontal(self, x, y, x_nueva, y_nueva, board):
+        
+        if y != y_nueva or x == x_nueva:  # Aseguramos que se mueve en línea horizontal
+            return False
+        paso_h = 1 if x_nueva > x else -1
+
+        for i in range(1, abs(x_nueva - x)):
+            if board.obtener_pieza(x + i * paso_h, y) is not None:
+                return False  # Retorna False si hay alguna pieza en el camino
+
+        # Si no hay piezas en el camino, permite el movimiento
+        return True  # Este return debe estar fuera del for
