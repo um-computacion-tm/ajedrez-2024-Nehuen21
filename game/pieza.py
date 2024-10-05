@@ -1,4 +1,4 @@
-#Check
+
 class Pieza:
 
     def __init__(self,color,x,y):
@@ -19,6 +19,7 @@ class Pieza:
     def __str__(self) :
         return ""
     
+    
     def camino_horizontal_libre(self, x, y, x_nueva, board):
         """Verifica si el camino horizontal está libre en el tablero"""
 
@@ -31,17 +32,18 @@ class Pieza:
                 if board.obtener_pieza(y, columna) is not None:
                     return False
         return True
-    
-    def camino_vertical_libre(self,x,y,y_nueva,board):
-        if y < y_nueva :                                       
+
+    def camino_vertical_libre(self, x, y, y_nueva, board):
+        if y < y_nueva:  # Movimiento hacia arriba
             for fila in range(y + 1, y_nueva):
-                if board.obtener_pieza(x,fila) is not None:
+                if board.obtener_pieza(x, fila) is not None:
                     return False
-        else:
-            for fila in range(y_nueva + 1, y ):                     
-                if board.obtener_pieza(x,fila) is not None:
+        else:  # Movimiento hacia abajo
+            for fila in range(y_nueva + 1, y):
+                if board.obtener_pieza(x, fila) is not None:
                     return False
         return True
+
     
     def movimiento_horizontal(self, x, y, x_nueva, y_nueva, board):
         
@@ -55,3 +57,32 @@ class Pieza:
 
         # Si no hay piezas en el camino, permite el movimiento
         return True  # Este return debe estar fuera del for
+    
+    def movimiento_vertical(self, x, y, x_nueva, y_nueva, board):
+        if x != x_nueva or y == y_nueva:
+            return False
+
+        paso_v = 1 if y_nueva > y else -1
+
+        # Cambiaremos el rango para incluir el caso de movimiento a una sola celda
+        for i in range(1, abs(y_nueva - y) + 1):
+            if board.obtener_pieza(x, y + i * paso_v) is not None:
+                return False
+
+        return True
+
+          
+        
+
+ 
+        
+
+
+        
+
+
+
+
+
+
+

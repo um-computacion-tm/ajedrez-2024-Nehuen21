@@ -1,4 +1,4 @@
-
+from game.pieza import Pieza
 from game.torre import Torre
 from game.alfil import Alfil
 from game.reina import Reina
@@ -13,11 +13,10 @@ class Board:
         self._positions = [[None for _ in range(8)] for _ in range(8)]
 
     def obtener_pieza(self, x, y):
-        """Obtiene la pieza en una posición dada."""
-        if 0 <= x < 8 and 0 <= y < 8:    
+        if 0 <= x < len(self._positions) and 0 <= y < len(self._positions[0]):
             return self._positions[x][y]
-        else :
-            raise ValueError("Las coordenadas estan fuera del tablero")
+        return None
+
 
     def setear_piezas(self):
         """Coloca las piezas en sus posiciones iniciales."""
@@ -31,7 +30,7 @@ class Board:
         self._positions[0][7] = Torre("blanco", 0, 7)
 
         for i in range(8):
-            self._positions[1][i] = Peon("blanco", 1, i)
+            self._positions[1][i] = Peon("blanco", 1, i) 
             self._positions[6][i] = Peon("negro", 6, i)
 
         self._positions[7][0] = Torre("negro", 7, 0)
@@ -42,6 +41,9 @@ class Board:
         self._positions[7][5] = Alfil("negro", 7, 5)       
         self._positions[7][6] = Caballo("negro", 7, 6)       
         self._positions[7][7] = Torre("negro", 7, 7)
+
+    def setear_tablero(self,x,y,pieza):
+        self._positions[x][y] = pieza
 
     def __str__(self):
         def crear_linea_etiquetas_columnas():
@@ -80,6 +82,8 @@ class Board:
         tablero.append(crear_linea_etiquetas_columnas())
 
         return "".join(tablero)
+    
+
 
         
 
