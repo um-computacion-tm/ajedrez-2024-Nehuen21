@@ -49,32 +49,49 @@ class TestPieza(unittest.TestCase):
         self.board._positions[0][0] = [None]  # Aseguramos que no haya piezas en la fila 0
         self.board._positions [1][0] = [None]
         # Colocamos la pieza en la posición inicial
-        self.board._positions[0][0] = self.pieza  # Posición (0, 0)
+        self.board._positions[0][0] = self.pieza  
 
-        # Verificamos que el movimiento de (0, 0) a (7, 0) sea válido
+        
         resultado = self.pieza.movimiento_horizontal(0, 0, 1, 0, self.board)
-        self.assertTrue(resultado)  # Esto debería pasar si el camino está libre
+        self.assertTrue(resultado)  
 
     def test_movimiento_horizontal_invalido(self):
-        # Colocamos una pieza en el camino en la fila 0
+       
         self.board._positions[0][3] = Pieza("negro", 3, 0)
 
-        # Verificamos que el movimiento horizontal no es válido porque hay una pieza en el camino
+       
         resultado = self.pieza.movimiento_horizontal(0, 0, 7, 0, self.board)
         self.assertFalse(resultado)
 
     def test_movimiento_vertical_invalido(self):
-        # Asegúrate de que no haya piezas en la primera y segunda fila de la columna 0
-        self.board._positions[0][7] = [None]
-        self.board._positions[6][0] = [None]
+     
+        self.board._positions[0][0] = [None]
+        self.board._positions[0][1] = [None]
 
-        # Coloca la pieza en la posición (0, 0)
-        self.board._positions[0][7] = self.pieza
+       
+        self.board._positions[0][0] = self.pieza
 
-        # Realiza la prueba del movimiento vertical
-        resultado = self.pieza.movimiento_vertical(0, 7, 6,0 ,  self.board)
-        self.assertFalse(resultado)  # Esto debería pasar si el camino está libre
+        
+        resultado = self.pieza.movimiento_vertical(0, 0, 0,1 ,  self.board)
+        self.assertTrue(resultado)  
 
+    def test_movimiento_diagonal_valido(self):
+        self.board._positions [1] [1] = [None]
+        self.board._positions [2] [2] = [None]
+
+        self.board._positions [1][1] = self.pieza
+
+        resultado = self.pieza.movimiento_diagonal(1,1,2,2,self.board)
+        self.assertTrue(resultado)
+
+    def test_movimiento_diagonal_invalido(self):
+        self.board._positions [0] [7] = [None]
+        self.board._positions [6] [0] = [None]
+
+        self.board._positions [0][7] = self.pieza
+
+        resultado = self.pieza.movimiento_diagonal(0, 7, 6,0,self.board)
+        self.assertFalse(resultado)
 
     
 
