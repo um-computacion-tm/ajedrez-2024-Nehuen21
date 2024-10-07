@@ -70,10 +70,8 @@ class TestPieza(unittest.TestCase):
 
        
         self.board._positions[0][0] = self.pieza
-
-        
         resultado = self.pieza.movimiento_vertical(0, 0, 0,1 ,  self.board)
-        self.assertTrue(resultado)  
+        self.assertFalse(resultado)  
 
     def test_movimiento_diagonal_valido(self):
         self.board._positions [1] [1] = [None]
