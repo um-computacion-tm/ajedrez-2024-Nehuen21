@@ -46,14 +46,14 @@ class TestPieza(unittest.TestCase):
 
     def test_movimiento_horizontal_valido(self):
         # Limpiamos la fila 0 para que no haya piezas en el camino
-        self.board._positions[0][0] = [None]  # Aseguramos que no haya piezas en la fila 0
-        self.board._positions [1][0] = [None]
-        # Colocamos la pieza en la posición inicial
-        self.board._positions[0][0] = self.pieza  
+        self.board._positions[0][0] = [None]  
+        self.board._positions [0][1] = [None]
+     
+        self.board._positions[0][0] = self.pieza 
 
-        
-        resultado = self.pieza.movimiento_horizontal(0, 0, 1, 0, self.board)
-        self.assertTrue(resultado)  
+      
+        resultado = self.pieza.movimiento_horizontal(0, 0, 0, 1, self.board)
+        self.assertTrue(resultado) 
 
     def test_movimiento_horizontal_invalido(self):
        
@@ -63,15 +63,25 @@ class TestPieza(unittest.TestCase):
         resultado = self.pieza.movimiento_horizontal(0, 0, 7, 0, self.board)
         self.assertFalse(resultado)
 
-    def test_movimiento_vertical_invalido(self):
-     
-        self.board._positions[0][0] = [None]
-        self.board._positions[0][1] = [None]
+    def test_movimiento_vertical_valido(self):
+            self.board._positions[1][0] = [None]
+            self.board._positions[4][0] = [None]
 
+            self.board._positions[1][0] = self.pieza
+            resultado = self.pieza.movimiento_vertical(1, 0, 4, 0, self.board)
+            self.assertTrue(resultado)
+
+
+    def test_movimiento_vertical_invalido(self):
        
-        self.board._positions[0][0] = self.pieza
-        resultado = self.pieza.movimiento_vertical(0, 0, 0,1 ,  self.board)
-        self.assertFalse(resultado)  
+        self.board._positions[0][7] = [None]
+        self.board._positions[6][0] = [None]
+
+        self.board._positions[0][7] = self.pieza
+
+      
+        resultado = self.pieza.movimiento_vertical(0, 7, 6, 0, self.board)
+        self.assertFalse(resultado) 
 
     def test_movimiento_diagonal_valido(self):
         self.board._positions [1] [1] = [None]
