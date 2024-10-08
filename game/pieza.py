@@ -69,18 +69,18 @@ class Pieza:
         
         return True  
 
-    def movimiento_diagonal(self,x,y,x_nueva,y_nueva,board):
-        if x == x_nueva or y == y_nueva :
+    def movimiento_diagonal(self, x, y, x_nueva, y_nueva, board):
+        # Verificar que sea un movimiento estrictamente diagonal (igual desplazamiento en X y Y)
+        if abs(x_nueva - x) != abs(y_nueva - y):
             return False
-        
+
         paso_y = 1 if y_nueva > y else -1 
         paso_x = 1 if x_nueva > x else -1
 
-        for i in range(1, abs(x_nueva - x)) : 
-            if board.obtener_pieza(x+i * paso_x, y + i * paso_y) is not None:
+        for i in range(1, abs(x_nueva - x)):
+            if board.obtener_pieza(x + i * paso_x, y + i * paso_y) is not None:
                 return False
         return True
-
         
 
  

@@ -36,7 +36,7 @@
 
 
 
-## [V 0.0.1] - 2024/10/08
+## [V 0.3.1] - 2024/10/08
 
 ### corregido 
 - test_movimiento_horizontal, test_movimiento_vertical (test_pieza.py)
@@ -45,4 +45,7 @@
 
 - movimiento_valido(reina.py)
 - archivo test_reina.py con sus respectivos test : movimiento_valido_diagonal, movimiento_valido_horizontal,movimiento_valido_vertical, test_iconos etc
+
+### Cambiado
+- metodo obtener_pieza de board.py
 

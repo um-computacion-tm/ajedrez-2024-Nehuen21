@@ -20,9 +20,9 @@ class TestReina(unittest.TestCase):
         self.assertTrue(resultado)
 
     def test_movimiento_valido_vertical(self):
-        self.__board__._positions [2][2] = None
+        self.__board__._positions [1][3] = None
 
-        resultado = self.__reina_blanco__.movimiento_valido(2,2,self.__board__)
+        resultado = self.__reina_blanco__.movimiento_valido(2,3,self.__board__)
         self.assertTrue(resultado)
 
     def test_movimiento_valido_horizontal(self):
@@ -35,6 +35,10 @@ class TestReina(unittest.TestCase):
 
     def test_icono_negro(self):
          self.assertEqual(str(self.__reina_negro__), "♛")
+
+    def test_movimiento_invalido(self):
+        resultado = self.__reina_blanco__.movimiento_valido(3,1,self.__board__)
+        self.assertFalse(resultado)
 
 
 if __name__ == '__main__':
