@@ -46,30 +46,28 @@ class Pieza:
 
     
     def movimiento_horizontal(self, x, y, x_nueva, y_nueva, board):
+        if x != x_nueva or y == y_nueva:  # Si las filas no son iguales, no es un movimiento horizontal
+            return False
+
+        paso_v = 1 if y_nueva > y else -1
+
+        for i in range(1, abs(y_nueva - y)):
+            if board.obtener_pieza(x, y + i * paso_v) is not None:
+                return False
+
+        return True
+    def movimiento_vertical(self, x, y, x_nueva, y_nueva, board):
         
-        if y != y_nueva or x == x_nueva:  # Aseguramos que se mueve en línea horizontal
+        if y != y_nueva or x == x_nueva:  
             return False
         paso_h = 1 if x_nueva > x else -1
 
         for i in range(1, abs(x_nueva - x)):
             if board.obtener_pieza(x + i * paso_h, y) is not None:
-                return False  # Retorna False si hay alguna pieza en el camino
+                return False  
 
-        # Si no hay piezas en el camino, permite el movimiento
-        return True  # Este return debe estar fuera del for
-    
-    def movimiento_vertical(self, x, y, x_nueva, y_nueva, board):
-        if x != x_nueva or y == y_nueva:
-            return False
-
-        paso_v = 1 if y_nueva > y else -1
-
-        # Cambiaremos el rango para incluir el caso de movimiento a una sola celda
-        for i in range(1, abs(y_nueva - y) + 1):
-            if board.obtener_pieza(x, y + i * paso_v) is not None:
-                return False
-
-        return True
+        
+        return True  
 
     def movimiento_diagonal(self,x,y,x_nueva,y_nueva,board):
         if x == x_nueva or y == y_nueva :

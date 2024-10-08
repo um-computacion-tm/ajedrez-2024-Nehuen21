@@ -12,10 +12,9 @@ class Board:
         # Inicializa el tablero 8x8 con None
         self._positions = [[None for _ in range(8)] for _ in range(8)]
 
-    def obtener_pieza(self, x, y):
-        if 0 <= x < len(self._positions) and 0 <= y < len(self._positions[0]):
+    def obtener_pieza(self, x: int, y: int) -> 'Pieza': 
             return self._positions[x][y]
-        return None
+
 
 
     def setear_piezas(self):
