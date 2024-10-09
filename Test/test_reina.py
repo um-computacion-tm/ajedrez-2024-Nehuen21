@@ -30,10 +30,10 @@ class TestReina(unittest.TestCase):
         resultado = self.__reina_blanco__.movimiento_valido(0, 2, self.__board__)
         self.assertTrue(resultado)
 
-    def test_icono_blanco(self):
+    def test_icono_reina_blanco(self):
        self.assertEqual(str(self.__reina_blanco__), "♕")
 
-    def test_icono_negro(self):
+    def test_icono_reina_negro(self):
          self.assertEqual(str(self.__reina_negro__), "♛")
 
     def test_movimiento_invalido(self):

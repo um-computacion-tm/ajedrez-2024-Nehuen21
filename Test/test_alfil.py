@@ -13,10 +13,10 @@ class TestAlfil(unittest.TestCase):
         self.__board__.setear_tablero(7,5,self.__alfil_negro__)
 
 
-    def test_icono_blanco(self):
+    def test_icono_alfil_blanco(self):
        self.assertEqual(str(self.__alfil_blanco__), "♗")
 
-    def test_icono_negro(self):
+    def test_icono_alfil_negro(self):
          self.assertEqual(str(self.__alfil_negro__), "♝")
 
     def test_movimiento_valido(self):
@@ -28,6 +28,10 @@ class TestAlfil(unittest.TestCase):
         self.__board__.setear_tablero(2, 0, self.__alfil_blanco__)  
         resultado = self.__alfil_blanco__.movimiento_valido(3, 0, self.__board__)
         self.assertFalse(resultado)
+
+
+
+
 if __name__ == '__main__':
     unittest.main()
  
