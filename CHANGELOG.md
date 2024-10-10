@@ -49,3 +49,15 @@
 ### Cambiado
 - metodo obtener_pieza de board.py
 
+## [V 0.3.2] - 2024/10/09
+
+### Añadido
+- movimiento de caballo.py  (movimiento en L)
+- test_caballo.py
+### Cambiado
+
+### [V 0.3.3] - 2024/10/10
+
+### Añadido 
+- validacion de movimientos de la torre
+- añadido test dee torre 
