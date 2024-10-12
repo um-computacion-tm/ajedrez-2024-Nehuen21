@@ -1,0 +1,63 @@
+# Changelog
+
+## [Unreleased]
+### Añadido
+- Clase `Chess` con la capacidad de mover piezas y cambiar de turno.
+- Clase `Board` que inicializa el tablero con las posiciones iniciales de las torres (`Rook`).
+- Clase `King` con función para verificar movimientos legales y manejar el estado de enroque.
+- Clase `Pawn` con lógica básica para movimientos y promoción.
+- Clase `Piece`, que sirve como base para las piezas de ajedrez, incluyendo métodos para mover piezas y verificar su color.
+
+### Cambiado
+- Logica del tablero (board.py)
+
+### Corregido
+- Atributos del constructor 
+
+### Eliminado
+- primer archivo de board
+
+## [V 0.0.3] - 2024/08/29
+### Añadido
+
+- Verificaciones de movimientos en el tablero [WIP].
+
+
+## [V 0.0.2] - 2024/08/15
+### Añadido
+- Clases `Pawn`, `bishop`, `queen`. Incluye funciones para verificar los movimientos en el tablero.
+
+### Obsolecente
+- Funciones de movimiento en la clase `pawn`, ya que no cumplen su objetivo de verificar los movimientos.
+
+## [V 0.0.1] - 2024/08/15
+### Añadido
+- Clases `Ajedrez`, `Piezas`, `Tablero`, `Torres` para posibilitar el juego de ajedrez.
+
+
+
+## [V 0.3.1] - 2024/10/08
+
+### corregido 
+- test_movimiento_horizontal, test_movimiento_vertical (test_pieza.py)
+
+### anadido
+
+- movimiento_valido(reina.py)
+- archivo test_reina.py con sus respectivos test : movimiento_valido_diagonal, movimiento_valido_horizontal,movimiento_valido_vertical, test_iconos etc
+
+### Cambiado
+- metodo obtener_pieza de board.py
+
+## [V 0.3.2] - 2024/10/09
+
+### Añadido
+- movimiento de caballo.py  (movimiento en L)
+- test_caballo.py
+### Cambiado
+
+### [V 0.3.3] - 2024/10/10
+
+### Añadido 
+- validacion de movimientos de la torre
+- añadido test de torre 
