@@ -8,11 +8,11 @@ from game.rey import Rey
 class TestBoard(unittest.TestCase):
 
     def setUp(self):
-        self.board = Board()  # Quitamos los dobles guiones bajos
+        self.board = Board()  
         self.board.setear_piezas()
 
     def test_obtener_torre_blanca(self):
-        torre = self.board.obtener_pieza(0, 0)  # También sin dobles guiones bajos
+        torre = self.board.obtener_pieza(0, 0) 
         self.assertIsInstance(torre, Torre)
 
     def test_obtener_torre_negra(self):

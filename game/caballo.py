@@ -16,3 +16,5 @@ class Caballo(Pieza):
             if pieza_destino is None or pieza_destino.decime_color() != self.__color__ :
                 return True
         return False
+    
+    

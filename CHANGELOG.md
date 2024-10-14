@@ -60,4 +60,21 @@
 
 ### Añadido 
 - validacion de movimientos de la torre
-- añadido test dee torre 
+- añadido test de torre 
+
+### [V 0.3.4] - 2024/10/12
+
+### Añadido
+- Validacion de movimiento rey
+- Añadido test de rey
+
+### [V 0.3.4] - 2024/10/14
+
+### Añadido
+
+- validacion de movimiento de peon
+- test de peon con respectivos movimientos
+
+### Borrado
+
+- archivos del entorno virtual subidos accidentalmente
