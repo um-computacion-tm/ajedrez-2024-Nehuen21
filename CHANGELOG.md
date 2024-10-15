@@ -78,3 +78,15 @@
 ### Borrado
 
 - archivos del entorno virtual subidos accidentalmente
+
+### [V 0.3.5] - 2024/10/15
+
+###  Añadido
+- metodo obtener pieza de chess
+- Exepciones
+- test de metodos cambio_de_turno , turno_actual y obtener_pieza_origen dentro de test_chess.py
+
+### Modificado
+
+- cambio de turno por errores
+- cambiado 2 nombres de archivos para menor confusion

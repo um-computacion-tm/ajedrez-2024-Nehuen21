@@ -25,12 +25,12 @@ class TestTorre(unittest.TestCase):
         
         self.assertTrue(resultado)
 
-    def test_movimiento_invalido_(self):
-  
+    def test_movimiento_bloqueado(self):
+        """Prueba que la torre no pueda moverse si el camino está bloqueado."""
         self.__board__.setear_tablero(2, 2, self.__torre_blanco__)  
-        resultado = self.__torre_blanco__.movimiento_valido(3, 3, self.__board__)
+        movimiento_es_valido = self.__torre_blanco__.movimiento_valido(3, 3, self.__board__)
         
-        self.assertFalse(resultado)
+        self.assertFalse(movimiento_es_valido)
 
     
     def test_movimiento_valido_horizontal(self):

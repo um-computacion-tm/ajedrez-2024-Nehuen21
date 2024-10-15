@@ -82,7 +82,29 @@ class Board:
 
         return "".join(tablero)
     
+    def camino_horizontal_libre(self, x, y, x_nueva, board):
+       
 
+        if x < x_nueva:  
+            for columna in range(x + 1, x_nueva):
+                if board.obtener_pieza(y, columna) is not None:
+                    return False
+        else:  
+            for columna in range(x_nueva + 1, x):
+                if board.obtener_pieza(y, columna) is not None:
+                    return False
+        return True
+    
+    def camino_vertical_libre(self, x, y, y_nueva, board):
+        if y < y_nueva: 
+            for fila in range(y + 1, y_nueva):
+                if board.obtener_pieza(x, fila) is not None:
+                    return False
+        else:  
+            for fila in range(y_nueva + 1, y):
+                if board.obtener_pieza(x, fila) is not None:
+                    return False
+        return True
 
         
 
