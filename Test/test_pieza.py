@@ -5,10 +5,9 @@ from game.board import Board
 class TestPieza(unittest.TestCase):
 
     def setUp(self):                            
-        self.pieza = Pieza("blanco", 0, 0)   # Inicializamos la pieza
-        self.board = Board()  # Inicializamos el tablero
-        self.board.setear_piezas()  # Colocamos las piezas en el tablero
-        
+        self.pieza = Pieza("blanco", 0, 0)   
+        self.board = Board()  
+        self.board.setear_piezas()  
 
     def test_decime_color(self):
         self.assertEqual(self.pieza.decime_color(), "blanco")        
@@ -27,15 +26,17 @@ class TestPieza(unittest.TestCase):
         self.assertEqual(self.pieza.__current_x__, x_nueva)
         self.assertEqual(self.pieza.__current_y__, y_nueva)
 
-    def test_camino_libre_derecha_horizontal(self):
-                                                       # Limpiamos la fila 0 para que no haya piezas en el camino
-        self.board._positions[0] = [None] * 8
+    def test_camino_horizontal_libre_en_fila(self):
+     """Valida que no haya obstrucciones en un camino horizontal específico."""
+    
+     self.board._positions[0] = [None for _ in range(8)]
 
-        # Simulamos un movimiento horizontal de (0, 0) a (0, 7) usando el método de la pieza
-        resultado = self.pieza.camino_horizontal_libre(0, 0, 7, self.board)
+    
+     camino_despejado = self.pieza.camino_horizontal_libre(0, 0, 7, self.board)
 
-        # Verificamos que el camino está libre
-        self.assertTrue(resultado)
+     
+     self.assertTrue(camino_despejado)
+
 
     def test_camino_libre_vertical_arriba(self):
         self.board._positions [1] = [None] * 8
@@ -45,7 +46,7 @@ class TestPieza(unittest.TestCase):
         self.assertTrue(resultado)
 
     def test_movimiento_horizontal_valido(self):
-        # Limpiamos la fila 0 para que no haya piezas en el camino
+       
         self.board._positions[0][0] = [None]  
         self.board._positions [0][1] = [None]
      
