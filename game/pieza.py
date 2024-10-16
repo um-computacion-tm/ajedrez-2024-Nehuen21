@@ -20,29 +20,31 @@ class Pieza:
         return ""
     
     
+    def camino_libre(self, coord_inicial, coord_final, constante, es_horizontal, board):
+
+        if coord_inicial < coord_final:
+            rango = range(coord_inicial + 1, coord_final)
+        else:
+            rango = range(coord_final + 1, coord_inicial)
+
+        for i in rango:
+            if es_horizontal:
+                pieza = board.obtener_pieza(i, constante)  # Horizontal: variamos x
+            else:
+                pieza = board.obtener_pieza(constante, i)  # Vertical: variamos y
+
+            if pieza is not None:
+                return False
+
+        return True
+
+
     def camino_horizontal_libre(self, x, y, x_nueva, board):
        
-
-        if x < x_nueva:  
-            for columna in range(x + 1, x_nueva):
-                if board.obtener_pieza(y, columna) is not None:
-                    return False
-        else:  
-            for columna in range(x_nueva + 1, x):
-                if board.obtener_pieza(y, columna) is not None:
-                    return False
-        return True
+        return self.camino_libre(x, x_nueva, y, es_horizontal=True, board=board)
 
     def camino_vertical_libre(self, x, y, y_nueva, board):
-        if y < y_nueva: 
-            for fila in range(y + 1, y_nueva):
-                if board.obtener_pieza(x, fila) is not None:
-                    return False
-        else:  
-            for fila in range(y_nueva + 1, y):
-                if board.obtener_pieza(x, fila) is not None:
-                    return False
-        return True
+        return self.camino_libre(y, y_nueva, x, es_horizontal=False, board=board)
 
     
     def movimiento_horizontal(self, x, y, x_nueva, y_nueva, board):
