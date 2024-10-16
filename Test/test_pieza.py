@@ -33,9 +33,9 @@ class TestPieza(unittest.TestCase):
 
     def test_camino_horizontal_libre_en_fila(self):
      """Valida que no haya obstrucciones en un camino horizontal específico."""
-
-     self.assertTrue(camino_despejado)
      camino_despejado = self.__pieza__.camino_horizontal_libre(0, 0, 7, self.board)
+     self.assertTrue(camino_despejado)
+     
 
     def test_camino_libre_vertical_arriba(self):
         
@@ -46,7 +46,7 @@ class TestPieza(unittest.TestCase):
 
     def test_movimiento_horizontal_valido(self):
        
-        self.board.setear_tablero(0, 0, self.__pieza__)
+        
         resultado = self.__pieza__.movimiento_horizontal(0, 0, 0, 1, self.board)
         self.assertTrue(resultado)
 
@@ -59,26 +59,26 @@ class TestPieza(unittest.TestCase):
         self.assertFalse(resultado)
 
     def test_movimiento_vertical_valido(self):
-        self.board.setear_tablero(1, 0, self.__pieza__)
-        resultado = self.__pieza__.movimiento_vertical(1, 0, 4, 0, self.board)
-        self.assertTrue(resultado)
+        
+        resultado_aceptado = self.__pieza__.movimiento_vertical(1, 0, 4, 0, self.board)
+        self.assertTrue(resultado_aceptado)
 
 
     def test_movimiento_vertical_invalido(self):
        
-        self.board.setear_tablero(0, 7, self.__pieza__)
-        resultado = self.__pieza__.movimiento_diagonal(0, 7, 6, 0, self.board)
-        self.assertFalse(resultado) 
+        
+        resultado_erroneo = self.__pieza__.movimiento_diagonal(0, 7, 6, 0, self.board)
+        self.assertFalse(resultado_erroneo) 
 
     def test_movimiento_diagonal_valido(self):
-        self.board.setear_tablero(1, 1, self.__pieza__)
-        resultado = self.__pieza__.movimiento_diagonal(1, 1, 2, 2, self.board)
-        self.assertTrue(resultado)
+        
+        salida_valida = self.__pieza__.movimiento_diagonal(1, 1, 2, 2, self.board)
+        self.assertTrue(salida_valida)
 
     def test_movimiento_diagonal_invalido(self):
-        self.board.setear_tablero(0, 7, self.__pieza__)
-        resultado = self.__pieza__.movimiento_diagonal(0, 7, 6, 0, self.board)
-        self.assertFalse(resultado)
+        
+        salida_invalida = self.__pieza__.movimiento_diagonal(0, 7, 6, 0, self.board)
+        self.assertFalse(salida_invalida)
 
     
 
