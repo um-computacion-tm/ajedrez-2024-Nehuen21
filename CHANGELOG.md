@@ -90,10 +90,14 @@
 
 - cambio de turno por errores
 - cambiado 2 nombres de archivos para menor confusion
-
-### [V 0.3.6] - 2024/10/15
-
-### Modificado
-
 - test de torre por codigo similar
 - test de piezas por codigo similar
+
+### [V 0.3.6] - 2024/10/16
+### Añadido
+- Funcion para los test de pieza para limpiar el tablero una sola vez 
+### Modificado
+- movimiento del rey , ya que utilizaba logica parecida a la del caballo
+- pieza.py, metodo camino_vertical_libre por codigo parecido a la del caminno horizontal
+- test_pieza.py , test de logica de movimientos por codigo repetitivo
+
