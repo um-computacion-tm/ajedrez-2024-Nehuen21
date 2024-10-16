@@ -29,3 +29,4 @@ class PosicionError(AjedrezError):
 
 
 
+    
