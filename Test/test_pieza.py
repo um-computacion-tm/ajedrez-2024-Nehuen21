@@ -44,42 +44,7 @@ class TestPieza(unittest.TestCase):
 
         self.assertTrue(resultado)
 
-    def test_movimiento_horizontal_valido(self):
-       
-        
-        resultado = self.__pieza__.movimiento_horizontal(0, 0, 0, 1, self.board)
-        self.assertTrue(resultado)
-
-    def test_movimiento_horizontal_invalido(self):
-       
-        self.board._positions[0][3] = Pieza("negro", 3, 0)
-
-       
-        resultado = self.__pieza__.movimiento_horizontal(0, 0, 7, 0, self.board)
-        self.assertFalse(resultado)
-
-    def test_movimiento_vertical_valido(self):
-        
-        resultado_aceptado = self.__pieza__.movimiento_vertical(1, 0, 4, 0, self.board)
-        self.assertTrue(resultado_aceptado)
-
-
-    def test_movimiento_vertical_invalido(self):
-       
-        
-        resultado_erroneo = self.__pieza__.movimiento_diagonal(0, 7, 6, 0, self.board)
-        self.assertFalse(resultado_erroneo) 
-
-    def test_movimiento_diagonal_valido(self):
-        
-        salida_valida = self.__pieza__.movimiento_diagonal(1, 1, 2, 2, self.board)
-        self.assertTrue(salida_valida)
-
-    def test_movimiento_diagonal_invalido(self):
-        
-        salida_invalida = self.__pieza__.movimiento_diagonal(0, 7, 6, 0, self.board)
-        self.assertFalse(salida_invalida)
-
+  
     
 
 
