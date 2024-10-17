@@ -4,12 +4,13 @@ from game.board import Board
 from game.caballo import Caballo
 from game.alfil import Alfil
 from game.rey import Rey
-
+from game.excepciones import AjedrezError, MovimientoInvalido, MovimientoErrorPieza,MismoColorError,PiezaInexistente,NoPodesComerAlRey,PosicionError
 class TestBoard(unittest.TestCase):
 
     def setUp(self):
         self.board = Board()  
         self.board.setear_piezas()
+        self.__torre_blanco__ = Torre("blanco",0,0)
 
     def test_obtener_torre_blanca(self):
         torre = self.board.obtener_pieza(0, 0) 
@@ -69,7 +70,43 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(self.board.__str__(),salida_esperada)
   
 
+    def test_encontrar_pieza_existente(self):
+ 
+        posicion = self.board.encontrar_pieza(self.__torre_blanco__)
+        self.assertEqual(posicion, (0, 0, self.__torre_blanco__))
+    
+    def test_encontrar_pieza_no_existente(self):
+  
+        pieza_inexistente = Torre("blanco", 1, 1)
+        posicion = self.board.encontrar_pieza(pieza_inexistente)
+        self.assertIsNone(posicion)
 
+    def test_mover_pieza_valido(self):
+        salida = self.board.mover_pieza((1, 1), (3, 1))
+        self.assertTrue(salida)
+
+    def test_mover_pieza_invalido(self):
+        with self.assertRaises(Exception):
+            self.board.mover_pieza((1, 1), (4, 4))
+
+
+    def test_mover_pieza_valido(self):
+        resultado = self.board.mover_pieza((1, 1), (3, 1))
+        self.assertTrue(resultado)
+
+    def test_mover_a_posicion_ocupada_mismo_color(self):
+        # Configurar las piezas en las posiciones adecuadas
+        
+
+        with self.assertRaises(MismoColorError):
+            self.board.mover_pieza((0, 0), (0, 1))
+
+
+    def test_no_se_puede_capturar_al_rey(self):
+        __rey__ = Rey("negro", 3, 1)
+        self.board.setear_tablero(3, 1, __rey__)
+        with self.assertRaises(NoPodesComerAlRey):
+            self.board.mover_pieza((1, 1), (3, 1))
     
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ from game.reina import Reina
 from game.caballo import Caballo
 from game.peon import Peon
 from game.rey import Rey
-
+from game.excepciones import AjedrezError, MovimientoInvalido, MovimientoErrorPieza,MismoColorError,PiezaInexistente,NoPodesComerAlRey,PosicionError
 class Board:
     
     def __init__(self):
@@ -115,6 +115,44 @@ class Board:
                 if pieza == pieza_objetivo:
                     return (x, y, pieza)
         return None 
+
+    
+    def mover_pieza(self, origen, destino):
+        """Gestiona el movimiento de una pieza de origen a destino."""
+        try:
+            self.validar_movimiento(origen, destino)  
+            self.ejecutar_movimiento(origen, destino)  
+            return True 
+        except AjedrezError as e:
+            print(f"Error: {str(e)}")
+            raise  
+
+    def validar_movimiento(self, origen, destino):
+        """Valida que el movimiento de la pieza sea permitido."""
+        pieza_origen = self.obtener_pieza(*origen)
+        pieza_destino = self.obtener_pieza(*destino)
+
+        if pieza_origen is None:
+            raise PiezaInexistente("No se encontró ninguna pieza en la posición de origen.")
+
+        if isinstance(pieza_destino, Rey):
+            raise NoPodesComerAlRey("No puedes capturar al rey del oponente.")
+
+        if not pieza_origen.movimiento_valido(destino[0], destino[1], self):
+            raise MovimientoInvalido("Movimiento inválido para esta pieza.")
+
+        if pieza_destino and pieza_origen.decime_color() == pieza_destino.decime_color():
+            raise MismoColorError("No puedes mover la pieza a una posición ocupada por otra del mismo color.")
+
+
+    def ejecutar_movimiento(self, origen, destino):
+   
+     pieza_origen = self.obtener_pieza(*origen)
+
+     self.setear_tablero(destino[0], destino[1], pieza_origen)
+     self.setear_tablero(origen[0], origen[1], None)
+     pieza_origen.setear_posicion(*destino)
+
 
 
 

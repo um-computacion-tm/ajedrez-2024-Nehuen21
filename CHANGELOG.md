@@ -106,3 +106,4 @@
 ### Añadido
 
 - metodo board y test
+- creacion de excepcion para no comerse al rey

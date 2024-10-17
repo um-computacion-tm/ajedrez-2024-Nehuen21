@@ -23,10 +23,13 @@ class PiezaInexistente(AjedrezError):
 
 
 class PosicionError(AjedrezError):
-  
-    def __init__(self, message="Posicion invalida"):
-        super().__init__(message)
+
+    def __init__(self,mensaje = "No podes comer al rey chabon"):
+        super().__init__(mensaje)
 
 
+class NoPodesComerAlRey (AjedrezError):
+    def __init__(self,mensaje = "No podes comer al rey chabon"):
+        super().__init__(mensaje)
 
     
