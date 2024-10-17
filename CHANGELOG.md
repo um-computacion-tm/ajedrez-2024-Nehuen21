@@ -102,3 +102,7 @@
 - test_pieza.py , test de logica de movimientos por codigo repetitivo
 - cambiando test de peon por bloques similares
 - cambiado test_reina.py
+### [V 0.3.6] - 2024/10/17
+### Añadido
+
+- metodo board y test
