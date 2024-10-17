@@ -11,6 +11,7 @@ class TestBoard(unittest.TestCase):
         self.board = Board()  
         self.board.setear_piezas()
         self.__torre_blanco__ = Torre("blanco",0,0)
+        self.board.setear_tablero(0,0,self.__torre_blanco__)
 
     def test_obtener_torre_blanca(self):
         torre = self.board.obtener_pieza(0, 0) 
