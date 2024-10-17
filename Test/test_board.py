@@ -87,18 +87,23 @@ class TestBoard(unittest.TestCase):
         self.assertTrue(salida)
 
     def test_mover_pieza_invalido(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(MovimientoInvalido):
             self.board.mover_pieza((1, 1), (4, 4))
 
 
-    def test_mover_pieza_valido(self):
-        resultado = self.board.mover_pieza((1, 1), (3, 1))
-        self.assertTrue(resultado)
+    def test_mover_pieza_valido_con_diferentes_coordenadas(self):
+        
+        origen = (1, 1)
+        destino = (3, 1)
+        
+        
+        resultado = self.board.mover_pieza(origen, destino)
+        
+       
+        self.assertTrue(resultado, "El movimiento de la pieza debería ser válido.")
 
     def test_mover_a_posicion_ocupada_mismo_color(self):
-        # Configurar las piezas en las posiciones adecuadas
-        
-
+    
         with self.assertRaises(MismoColorError):
             self.board.mover_pieza((0, 0), (0, 1))
 
