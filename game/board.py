@@ -10,39 +10,39 @@ class Board:
     
     def __init__(self):
         # Inicializa el tablero 8x8 con None
-        self._positions = [[None for _ in range(8)] for _ in range(8)]
+        self.__positions__ = [[None for _ in range(8)] for _ in range(8)]
 
     def obtener_pieza(self, x: int, y: int) -> 'Pieza': 
-            return self._positions[x][y]
+            return self.__positions__[x][y]
 
 
 
     def setear_piezas(self):
         """Coloca las piezas en sus posiciones iniciales."""
-        self._positions[0][0] = Torre("blanco", 0, 0)
-        self._positions[0][1] = Caballo("blanco", 0, 1)
-        self._positions[0][2] = Alfil("blanco", 0, 2)               
-        self._positions[0][3] = Reina("blanco", 0, 3)       
-        self._positions[0][4] = Rey("blanco", 0, 4)
-        self._positions[0][5] = Alfil("blanco", 0, 5)       
-        self._positions[0][6] = Caballo("blanco", 0, 6)       
-        self._positions[0][7] = Torre("blanco", 0, 7)
+        self.__positions__[0][0] = Torre("blanco", 0, 0)
+        self.__positions__[0][1] = Caballo("blanco", 0, 1)
+        self.__positions__[0][2] = Alfil("blanco", 0, 2)               
+        self.__positions__[0][3] = Reina("blanco", 0, 3)       
+        self.__positions__[0][4] = Rey("blanco", 0, 4)
+        self.__positions__[0][5] = Alfil("blanco", 0, 5)       
+        self.__positions__[0][6] = Caballo("blanco", 0, 6)       
+        self.__positions__[0][7] = Torre("blanco", 0, 7)
 
         for i in range(8):
-            self._positions[1][i] = Peon("blanco", 1, i) 
-            self._positions[6][i] = Peon("negro", 6, i)
+            self.__positions__[1][i] = Peon("blanco", 1, i) 
+            self.__positions__[6][i] = Peon("negro", 6, i)
 
-        self._positions[7][0] = Torre("negro", 7, 0)
-        self._positions[7][1] = Caballo("negro", 7, 1)
-        self._positions[7][2] = Alfil("negro", 7, 2)               
-        self._positions[7][3] = Reina("negro", 7, 3)       
-        self._positions[7][4] = Rey("negro", 7, 4)
-        self._positions[7][5] = Alfil("negro", 7, 5)       
-        self._positions[7][6] = Caballo("negro", 7, 6)       
-        self._positions[7][7] = Torre("negro", 7, 7)
+        self.__positions__[7][0] = Torre("negro", 7, 0)
+        self.__positions__[7][1] = Caballo("negro", 7, 1)
+        self.__positions__[7][2] = Alfil("negro", 7, 2)               
+        self.__positions__[7][3] = Reina("negro", 7, 3)       
+        self.__positions__[7][4] = Rey("negro", 7, 4)
+        self.__positions__[7][5] = Alfil("negro", 7, 5)       
+        self.__positions__[7][6] = Caballo("negro", 7, 6)       
+        self.__positions__[7][7] = Torre("negro", 7, 7)
 
     def setear_tablero(self,x,y,pieza):
-        self._positions[x][y] = pieza
+        self.__positions__[x][y] = pieza
 
     def __str__(self):
         def crear_linea_etiquetas_columnas():
@@ -72,7 +72,7 @@ class Board:
         tablero.append(crear_linea_superior_inferior())
 
         for fila_index in range(8):
-            fila_actual = self._positions[fila_index]
+            fila_actual = self.__positions__[fila_index]
             tablero.append(crear_fila_con_piezas(fila_actual, 8 - fila_index))
             if fila_index != 7:
                 tablero.append(crear_linea_separadora())
@@ -107,6 +107,16 @@ class Board:
         return True
 
         
+    def encontrar_pieza(self, pieza_objetivo):
+        """Encuentra la posición de una pieza específica en el tablero."""
+        for x in range(8):
+            for y in range(8):
+                pieza = self.__positions__[x][y]
+                if pieza == pieza_objetivo:
+                    return (x, y, pieza)
+        return None 
+
+
 
 if __name__ == '__main__':
 
