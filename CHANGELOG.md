@@ -100,4 +100,4 @@
 - movimiento del rey , ya que utilizaba logica parecida a la del caballo
 - pieza.py, metodo camino_vertical_libre por codigo parecido a la del caminno horizontal
 - test_pieza.py , test de logica de movimientos por codigo repetitivo
-
+- cambiando test de peon por bloques similares

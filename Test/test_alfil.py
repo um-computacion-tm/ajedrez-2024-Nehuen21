@@ -25,7 +25,6 @@ class TestAlfil(unittest.TestCase):
 
     def test_movimiento_invalido(self):
   
-        self.__board__.setear_tablero(2, 0, self.__alfil_blanco__)  
         resultado = self.__alfil_blanco__.movimiento_valido(3, 0, self.__board__)
         self.assertFalse(resultado)
 
