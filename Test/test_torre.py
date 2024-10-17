@@ -33,11 +33,16 @@ class TestTorre(unittest.TestCase):
         self.assertFalse(movimiento_es_valido)
 
     
-    def test_movimiento_valido_horizontal(self):
-        self.__board__._positions [0][5] = None
-        resultado = self.__torre_blanco__.movimiento_valido(0,6 , self.__board__)
+    def test_desplazamiento_horizontal(self):
+        
+        columnas_libres = [3, 4, 5] 
+        for col in columnas_libres:
+            self.__board__._positions[0][col] = None
 
+       
+        resultado = self.__torre_blanco__.movimiento_valido(0, 6, self.__board__)
         self.assertTrue(resultado)
+
 
 
 
