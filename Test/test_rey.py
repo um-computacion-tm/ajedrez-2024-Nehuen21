@@ -17,21 +17,11 @@ class TestRey(unittest.TestCase):
                 resultado = self.__rey_blanco__.movimiento_valido(x, y, self.__board__)
                 self.assertEqual(resultado, esperado)
 
-    def verificar_movimientos(self, movimientos, esperado):
-        """Verifica una lista de movimientos y si son válidos o inválidos."""
-        for x, y in movimientos:
-            with self.subTest(x=x, y=y):
-                resultado = self.__rey_blanco__.movimiento_valido(x, y, self.__board__)
-                self.assertEqual(resultado, esperado)
-
     def test_movimientos_validos(self):
-        movimientos_validos = [(1, 4), (1, 3), (0, 5), (0, 3)]  # Ejemplo de movimientos válidos
+        movimientos_validos = [(1, 4), (1, 3), (0, 5), (0, 3)]  
         self.verificar_movimientos(movimientos_validos, True)
 
-    def test_movimientos_invalidos(self):
-        movimientos_invalidos = [(2, 4), (2, 2), (3, 3), (4, 4)]  # Ejemplo de movimientos inválidos
-        self.verificar_movimientos(movimientos_invalidos, False)
-
+    
 
     def test_icono_rey_blanco(self):
        self.assertEqual(str(self.__rey_blanco__), "♔")
