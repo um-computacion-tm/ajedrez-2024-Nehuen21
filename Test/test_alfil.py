@@ -23,10 +23,10 @@ class TestAlfil(unittest.TestCase):
         resultado = self.__alfil_blanco__.movimiento_valido(1, 3, self.__board__)
         self.assertTrue(resultado)
 
-    def test_movimiento_invalido(self):
-  
-        resultado = self.__alfil_blanco__.movimiento_valido(3, 0, self.__board__)
-        self.assertFalse(resultado)
+    def test_alfil_movimiento_invalido(self):
+        """Valida que el alfil no pueda realizar un movimiento inválido."""
+        destino = (3, 0)
+        self.assertFalse(self.__alfil_blanco__.movimiento_valido(*destino, self.__board__))
 
 
 

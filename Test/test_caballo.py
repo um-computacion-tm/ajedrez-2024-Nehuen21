@@ -22,10 +22,12 @@ class TestCaballo(unittest.TestCase):
         resultado_derecha = self.__caballo_blanco__.movimiento_valido(4, 5, self.__board__)
         self.assertTrue(resultado_derecha)
 
-    def test_movimiento_invalido(self):
-      
-        resultado = self.__caballo_blanco__.movimiento_valido(4, 4, self.__board__)
-        self.assertFalse(resultado)
+    def test_movimiento_invalido_fuera_rango(self):
+        """Verifica que el caballo no pueda moverse fuera de su patrón válido."""
+        destino = (4, 4)
+        resultado = self.__caballo_blanco__.movimiento_valido(*destino, self.__board__)
+        self.assertFalse(resultado,)
+
 
 
 
