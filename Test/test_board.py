@@ -126,5 +126,13 @@ class TestBoard(unittest.TestCase):
         with self.assertRaises(PiezaInexistente):
             self.board.obtener_color((3, 3))
 
+    def test_limpiar_tablero(self):
+        """Verifica que el tablero quede vacío después de limpiarlo."""
+        self.board.limpiar_tablero()
+        for x in range(8):
+            for y in range(8):
+                self.assertIsNone(self.board.obtener_pieza(x, y))
+
+
 if __name__ == '__main__':
     unittest.main()

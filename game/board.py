@@ -106,6 +106,13 @@ class Board:
                         contador[color] += 1
 
         return contador
+    
+    def limpiar_tablero(self):
+        """Limpia el tablero estableciendo todas las posiciones en None."""
+        for x in range(8):
+            for y in range(8):
+                self.__positions__[x][y] = None
+    
 
 
     def encontrar_pieza(self, pieza_objetivo):
