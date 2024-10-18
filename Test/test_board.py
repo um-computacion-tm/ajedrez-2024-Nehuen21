@@ -114,6 +114,10 @@ class TestBoard(unittest.TestCase):
         with self.assertRaises(NoPodesComerAlRey):
             self.board.mover_pieza((1, 1), (3, 1))
     
+    def test_error_en_borde_del_tablero(self):
+        """Verifica que no haya errores al consultar posiciones válidas pero vacías en el borde del tablero."""
+        with self.assertRaises(PiezaInexistente):
+            self.board.obtener_color((3, 3))
 
 if __name__ == '__main__':
     unittest.main()

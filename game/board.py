@@ -82,7 +82,16 @@ class Board:
 
         return "".join(tablero)
     
-    
+    def obtener_color(self, posicion):
+        """Obtiene el color de la pieza en una posición específica del tablero."""
+        x, y = posicion  
+
+        pieza = self.obtener_pieza(x, y)  
+
+        if not pieza:  
+            raise PiezaInexistente(f"No hay ninguna pieza en la posición ({x}, {y}).")
+
+        return pieza.decime_color()
 
         
     def encontrar_pieza(self, pieza_objetivo):
