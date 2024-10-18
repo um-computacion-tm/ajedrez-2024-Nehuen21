@@ -107,3 +107,8 @@
 
 - metodo board y test
 - creacion de excepcion para no comerse al rey
+
+### [V 0.3.6] - 2024/10/18
+### Añadido
+- board :metodo contar piezas con test
+- board : metodo para obtener el color con su respectivo test

@@ -108,6 +108,13 @@ class TestBoard(unittest.TestCase):
             self.board.mover_pieza((0, 0), (0, 1))
 
 
+    def test_contar_piezas_inicial(self):
+        """Verifica que el conteo inicial de piezas sea correcto."""
+        contador = self.board.contar_piezas()
+        self.assertEqual(contador["blanco"], 16)
+        self.assertEqual(contador["negro"], 16)
+
+
     def test_no_se_puede_capturar_al_rey(self):
         __rey__ = Rey("negro", 3, 1)
         self.board.setear_tablero(3, 1, __rey__)

@@ -93,7 +93,21 @@ class Board:
 
         return pieza.decime_color()
 
-        
+
+    def contar_piezas(self):
+        """Cuenta cuántas piezas hay de cada color en el tablero."""
+        contador = {"blanco": 0, "negro": 0}
+
+        for fila in self.__positions__:
+            for pieza in fila:
+                if pieza is not None:
+                    color = pieza.decime_color()
+                    if color in contador:
+                        contador[color] += 1
+
+        return contador
+
+
     def encontrar_pieza(self, pieza_objetivo):
         """Encuentra la posición de una pieza específica en el tablero."""
         for x in range(8):
