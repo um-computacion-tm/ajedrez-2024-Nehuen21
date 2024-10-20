@@ -91,6 +91,8 @@ class TestChess(unittest.TestCase):
         except MismoColorError as e:
             self.fail(f"Se lanzó MismoColorError de forma incorrecta: {e}")
 
+
+
     def test_pieza_incorrecta_turno_incorrecto(self):
         """Verifica que se lance MismoColorError si el jugador intenta mover una pieza del color opuesto."""
         
