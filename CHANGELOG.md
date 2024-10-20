@@ -120,12 +120,13 @@
 
 ### [V 0.4.1] - 2024/10/20
 ### Añadido
-
+- metodos de cliente.py refaccionados (antes estaban comentados por mal funcionamiento)
 ### Cambiado
 - metodos y test corregidos
 - board a __board__ por problemas de encapsulamiento
 - mas metodos de chess.py como mostrar tablero y validar piezas_turno
 - respectivos test de estos metodos
+-cliente.py
 
 ### Borrado
 - lineas vacias de codigo y comentarios, no se borro nada del codigo original
