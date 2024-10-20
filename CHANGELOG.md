@@ -102,7 +102,7 @@
 - test_pieza.py , test de logica de movimientos por codigo repetitivo
 - cambiando test de peon por bloques similares
 - cambiado test_reina.py
-### [V 0.3.6] - 2024/10/17
+### [V 0.3.7] - 2024/10/17
 ### Añadido
 
 - metodo board y test
@@ -112,3 +112,14 @@
 ### Añadido
 - board :metodo contar piezas con test
 - board : metodo para obtener el color con su respectivo test
+
+### [V 0.4.0] - 2024/10/19
+### Añadido
+
+- metodos en chess para validaciones y el estado del juego
+
+### [V 0.4.1] - 2024/10/20
+### Añadido
+
+### Cambiado
+- metodos y test corregidos

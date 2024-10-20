@@ -31,17 +31,19 @@ class TestChess(unittest.TestCase):
 
     
     def test_empate_solo_reyes(self):
-        # Limpiar el tablero antes de comenzar
-        self.__board__.limpiar_tablero()
+     """Verifica que el juego detecte correctamente un empate con solo dos reyes."""
+     
+     self.__ajedres__.__board__.limpiar_tablero()
 
-        # Colocar solo los dos reyes
-        self.__board__.setear_tablero(0, 4, Rey("blanco", 0, 4))
-        self.__board__.setear_tablero(7, 4, Rey("negro", 7, 4))
-
-        # Confirmar el estado del juego
-        estado = self.__ajedres__.estado_del_juego()
-        print(self.__board__)
-        self.assertEqual(self.__ajedres__.estado_del_juego(), "Empate")
+    
+     self.__rey_blanco__ = Rey("blanco", 0, 4)
+     self.__rey_negro__ = Rey("negro", 7, 4)
+     self.__ajedres__.__board__.setear_tablero(0, 4, self.__rey_blanco__)
+     self.__ajedres__.__board__.setear_tablero(7, 4, self.__rey_negro__)
+     piezas = self.__ajedres__.__board__.contar_piezas()
+     estado = self.__ajedres__.estado_del_juego()
+  
+     self.assertEqual(estado, "Empate", "El juego no detectó el empate correctamente.")
     
 if __name__ == "__main__":
     unittest.main()
