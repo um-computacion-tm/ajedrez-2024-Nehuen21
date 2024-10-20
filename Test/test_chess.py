@@ -62,5 +62,23 @@ class TestChess(unittest.TestCase):
 
     
      self.assertEqual(estado, "Victoria Negra", "El juego no detectó la victoria negra correctamente.")
+
+    def test_victoria_blanca(self):
+        """Verifica que el juego detecte correctamente una victoria blanca."""
+        
+        self.__ajedres__.__board__.limpiar_tablero()
+
+       
+        rey_blanco = Rey("blanco", 0, 4)
+        torre_blanca = Torre("blanco", 1, 4)
+
+        self.__ajedres__.__board__.setear_tablero(0, 4, rey_blanco)
+        self.__ajedres__.__board__.setear_tablero(1, 4, torre_blanca)
+
+   
+        estado = self.__ajedres__.estado_del_juego()
+
+       
+        self.assertEqual(estado, "Victoria Blanca", "El juego no detectó la victoria blanca correctamente.")
 if __name__ == "__main__":
     unittest.main()
