@@ -124,6 +124,8 @@
 ### Cambiado
 - metodos y test corregidos
 - board a __board__ por problemas de encapsulamiento
+- mas metodos de chess.py como mostrar tablero y validar piezas_turno
+- respectivos test de estos metodos
 
 ### Borrado
 - lineas vacias de codigo y comentarios, no se borro nada del codigo original

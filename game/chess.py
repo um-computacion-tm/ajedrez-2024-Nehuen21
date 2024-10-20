@@ -1,5 +1,5 @@
 from game.board import Board
-from game.excepciones import AjedrezError,PiezaInexistente
+from game.excepciones import PiezaInexistente,MismoColorError
 class Ajedres:
     def __init__(self):
         self.__board__ = Board()
@@ -14,6 +14,13 @@ class Ajedres:
     def turno_actual(self):
         return self.__turno_actual__
     
+    def turno_que_sigue(self):
+        if self.__turno_actual__ == "BLANCO":
+            return "NEGRO"
+        else:
+            self.__turn__ = "BLANCO"
+
+
     def obtener_pieza_origen(self, x: int, y: int):
 
         pieza = self.__board__.obtener_pieza(x,y)
@@ -47,3 +54,27 @@ class Ajedres:
             return "Empate"
 
         return "En curso"
+    
+
+    def mostrar_tablero(self):
+        print(self.__board__)
+
+
+    
+    def validar_pieza_turno(self, x, y):
+         """
+         Verifica que la pieza en la posición indicada pertenezca al jugador actual.
+         Lanza una excepción si no hay pieza o si la pieza es del color opuesto.
+         """
+         pieza = self.__board__.obtener_pieza(x, y)
+
+         if pieza is None:
+             raise PiezaInexistente(f"No hay ninguna pieza en la posición ({x}, {y}).")
+
+         color_pieza = pieza.decime_color().strip().lower()  # Normalizar color
+         color_turno = self.__turno_actual__.strip().lower()  # Normalizar turno
+
+         if color_pieza != color_turno:
+             raise MismoColorError(f"No puedes mover una pieza de color {color_pieza}. Turno actual: {color_turno}")
+
+         return pieza
