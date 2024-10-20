@@ -95,19 +95,16 @@ class Board:
 
 
     def contar_piezas(self):
-        """Devuelve una lista con la cantidad de piezas blancas y negras en el tablero."""
         contador = [0, 0]  # [blancas, negras]
-
+    
         for fila in self.__positions__:
             for pieza in fila:
                 if pieza is not None:
-                    print(f"Encontrada pieza: {pieza}, Color: {pieza.decime_color()}")  
                     if pieza.decime_color() == "blanco":
-                        contador[0] += 1  
-                    else:
-                        contador[1] += 1  
-
-        print(f"Piezas contadas: {contador}")  
+                        contador[0] += 1  # Incrementa blancas
+                    elif pieza.decime_color() == "negro":
+                        contador[1] += 1  # Incrementa negras
+    
         return contador
 
     

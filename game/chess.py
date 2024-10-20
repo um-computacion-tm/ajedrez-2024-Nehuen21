@@ -24,25 +24,26 @@ class Ajedres:
     
     def estado_del_juego(self):
         piezas = self.__board__.contar_piezas()
+        print(f"Piezas en el tablero: {piezas}")  # Debugging
         
         if piezas == [1, 1]:
             return "Empate"
-        elif piezas == [1, 0]:
-            return "Victoria Blanca"
-        elif piezas == [0, 1]:
+        elif piezas[0] == 0:
             return "Victoria Negra"
-    
+        elif piezas[1] == 0:
+            return "Victoria Blanca"
+        
         return "En curso"
 
 
     def validaciones(self):
-        piezas_alive = self.__board__.contar_piezas()
+        piezas_vivas = self.__board__.contar_piezas()
 
-        if piezas_alive[0] == 1 and piezas_alive[1] == 0:
+        if piezas_vivas[0] == 1 and piezas_vivas[1] == 0:
             return "Victoria Blanca"
-        elif piezas_alive[0] == 0 and piezas_alive[1] == 1:
+        elif piezas_vivas[0] == 0 and piezas_vivas[1] == 1:
             return "Victoria Negra"
-        elif piezas_alive[0] == 1 and piezas_alive[1] == 1:
+        elif piezas_vivas[0] == 1 and piezas_vivas[1] == 1:
             return "Empate"
 
         return "En curso"
