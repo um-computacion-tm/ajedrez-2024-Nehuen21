@@ -123,3 +123,7 @@
 
 ### Cambiado
 - metodos y test corregidos
+- board a __board__ por problemas de encapsulamiento
+
+### Borrado
+- lineas vacias de codigo y comentarios, no se borro nada del codigo original

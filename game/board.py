@@ -95,20 +95,21 @@ class Board:
 
 
     def contar_piezas(self):
-        # Devuelve el número de piezas blancas y negras en el tablero
-        piezas_blancas = 0
-        piezas_negras = 0
-        for row in range(8):
-            for col in range(8):
-                piece = self.obtener_pieza(row, col)
-                if piece is None:
-                    continue
-                else:
-                    if piece.decime_color() == "blanco":
-                        piezas_blancas += 1
+        """Devuelve una lista con la cantidad de piezas blancas y negras en el tablero."""
+        contador = [0, 0]  # [blancas, negras]
+
+        for fila in self.__positions__:
+            for pieza in fila:
+                if pieza is not None:
+                    print(f"Encontrada pieza: {pieza}, Color: {pieza.decime_color()}")  
+                    if pieza.decime_color() == "blanco":
+                        contador[0] += 1  
                     else:
-                        piezas_negras += 1
-        return (piezas_blancas, piezas_negras)
+                        contador[1] += 1  
+
+        print(f"Piezas contadas: {contador}")  
+        return contador
+
     
     def limpiar_tablero(self):
         """Limpia el tablero estableciendo todas las posiciones en None."""
