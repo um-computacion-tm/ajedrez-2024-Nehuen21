@@ -21,3 +21,35 @@ class Ajedres:
         if pieza is None:
             raise PiezaInexistente(f"No existe ninguna pieza en la posicion({x}), ({y}).")
         return pieza
+    
+    def validaciones(self, movimiento_exitoso):
+        if not movimiento_exitoso:
+            return False  
+
+        estado = self.estado_del_juego()
+
+        if estado == "Empate":
+            return "Empate"
+        elif estado == "Victoria Blanca":
+            return "Victoria Blanca"
+        elif estado == "Victoria Negra":
+            return "Victoria Negra"
+
+      
+        self.cambio_de_turno()
+        return True 
+
+
+    def estado_del_juego(self):
+        lista = self.__board__.contar_piezas()
+
+        if lista == (1,1) :
+            return "Empate" 
+
+        elif lista == (1,0) :
+            return "Victoria Blanca"  
+
+        elif lista== (0,1):
+            return "Victoria Negra" 
+
+        return 

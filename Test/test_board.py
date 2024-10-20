@@ -110,9 +110,10 @@ class TestBoard(unittest.TestCase):
 
     def test_contar_piezas_inicial(self):
         """Verifica que el conteo inicial de piezas sea correcto."""
+        
         contador = self.board.contar_piezas()
-        self.assertEqual(contador["blanco"], 16)
-        self.assertEqual(contador["negro"], 16)
+        
+        self.assertEqual(contador, (16,16))
 
 
     def test_no_se_puede_capturar_al_rey(self):
