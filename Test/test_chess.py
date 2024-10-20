@@ -86,7 +86,7 @@ class TestChess(unittest.TestCase):
 
         
         try:
-            pieza_devuelta = self.__ajedres__.validar_pieza_jugador(0, 4)
+            pieza_devuelta = self.__ajedres__.validar_pieza_turno(0, 4)
             self.assertEqual(pieza_devuelta, rey_blanco, "No se devolvió la pieza correcta.")
         except MismoColorError as e:
             self.fail(f"Se lanzó MismoColorError de forma incorrecta: {e}")
@@ -105,7 +105,7 @@ class TestChess(unittest.TestCase):
 
         
         with self.assertRaises(MismoColorError) as context:
-            self.__ajedres__.validar_pieza_jugador(0, 4)
+            self.__ajedres__.validar_pieza_turno(0, 4)
 
         
         self.assertIn(
