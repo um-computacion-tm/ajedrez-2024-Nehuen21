@@ -1,9 +1,10 @@
 from game.board import Board
-from game.excepciones import PiezaInexistente,MismoColorError,MovimientoInvalido
+from game.excepciones import PiezaInexistente,MismoColorError,MovimientoInvalido,PosicionError
 class Ajedrez:
     def __init__(self):
         self.__board__ = Board()
         self.__turno_actual__ = "BLANCO"
+        self.__board__.setear_piezas()
 
     def cambio_de_turno(self):
         if self.__turno_actual__ == "BLANCO":
@@ -62,79 +63,87 @@ class Ajedrez:
 
     
     def validar_pieza_turno(self, x, y):
-         """
-         Verifica que la pieza en la posición indicada pertenezca al jugador actual.
-         Lanza una excepción si no hay pieza o si la pieza es del color opuesto.
-         """
-         pieza = self.__board__.obtener_pieza(x, y)
+        pieza = self.__board__.obtener_pieza(x, y)
 
-         if pieza is None:
-             raise PiezaInexistente(f"No hay ninguna pieza en la posición ({x}, {y}).")
+        if pieza is None:
+            raise PiezaInexistente(f"No hay ninguna pieza en la posición ({x}, {y}).")
 
-         color_pieza = pieza.decime_color().strip().lower()  # Normalizar color
-         color_turno = self.__turno_actual__.strip().lower()  # Normalizar turno
+        color_pieza = pieza.decime_color().strip().lower()
+        color_turno = self.__turno_actual__.strip().lower()
 
-         if color_pieza != color_turno:
-             raise MismoColorError(f"No puedes mover una pieza de color {color_pieza}. Turno actual: {color_turno}")
+        if color_pieza != color_turno:
+            raise MismoColorError(f"No puedes mover una pieza de color {color_pieza}. Turno actual: {color_turno}")
 
-         return pieza
+        return pieza
+
+
     
-    def traducir_input(self, entrada):
-        """
-        Convierte una entrada alfanumérica, como 'C3', a una tupla de coordenadas internas del tablero.
-        """
-        if len(entrada) != 2:
-            raise ValueError("La entrada debe tener dos caracteres: una letra y un número.")
 
-        columna = entrada[0].lower()  
-        fila = entrada[1]
-
-        if columna < 'a' or columna > 'h' or not fila.isdigit():
-            raise ValueError("Entrada inválida. Debe estar en el rango A1-H8.")
-
-
-        indice_columna = ord(columna) - ord('a')
-
-
-        indice_fila = int(fila) - 1
-
-        if indice_fila < 0 or indice_fila > 7 or indice_columna < 0 or indice_columna > 7:
-            raise ValueError("La entrada está fuera del rango del tablero.")
-
-        return (indice_fila, indice_columna)
     
-    def movimientos(self, origen, destino):
+    def translate_input(self, input_str):
         """
-        Gestiona el proceso completo de mover una pieza:
-        - Convierte las entradas del usuario a coordenadas.
-        - Verifica que la pieza seleccionada sea del jugador actual.
-        - Intenta realizar el movimiento y verifica el estado del juego.
-        - Gestiona las excepciones relacionadas con movimientos inválidos.
+        Transforma una entrada como 'A2' a las coordenadas internas (fila, columna).
         """
+        if len(input_str) != 2:
+            raise PosicionError("La entrada debe tener exactamente 2 caracteres, como 'A2'.")
+
+        
+        letter_to_col = {
+            'A': 0, 'B': 1, 'C': 2, 'D': 3,
+            'E': 4, 'F': 5, 'G': 6, 'H': 7
+        }
+
+        
+        letter = input_str[0].upper()
+        num = input_str[1]
+
+        
+        if letter not in letter_to_col:
+            raise PosicionError(f"La columna '{letter}' es inválida. Debe estar entre A y H.")
+        col = letter_to_col[letter]
+
+        
         try:
-           
-            coord_origen = self.traducir_input(origen)
-            coord_destino = self.traducir_input(destino)
-
-            pieza = self.validar_pieza_turno(*coord_origen)
-            movimiento_exitoso = self.__board__.mover_pieza(coord_origen, coord_destino)
+            row = int(num)
+            if row < 1 or row > 8:
+                raise PosicionError("La fila debe estar entre 1 y 8.")
 
             
-            if movimiento_exitoso:
-                estado = self.estado_del_juego()
+            
+            return (row, col)
 
-               
+        except ValueError:
+            raise PosicionError(f"El segundo carácter '{num}' debe ser un número.")
+
+
+
+
+
+
+    def movimientos(self, origen, destino):
+        try:
+           
+            coord_origen = self.translate_input(origen)
+            coord_destino = self.translate_input(destino)
+
+           
+            self.pieza = self.validar_pieza_turno(*coord_origen)
+
+            
+            if self.__board__.mover_pieza(coord_origen, coord_destino):
+                estado = self.estado_del_juego()  
+
+                
                 if estado == "En curso":
                     self.cambio_de_turno()
 
-                
                 return estado
             else:
                 raise MovimientoInvalido("El movimiento no se pudo completar.")
+        except (PiezaInexistente, MismoColorError, MovimientoInvalido) as e:
+            raise e
 
-        except PiezaInexistente as e:
-            raise e  
-        except MismoColorError as e:
-            raise e  
-        except MovimientoInvalido as e:
-            raise e  
+    
+
+
+
