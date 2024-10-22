@@ -4,7 +4,8 @@ from game.board import Board
 from game.chess import Ajedrez
 from game.torre import Torre
 from game.rey import Rey
-from game.excepciones import MismoColorError,PiezaInexistente,PosicionError
+from game.peon import Peon
+from game.excepciones import MismoColorError,PiezaInexistente,PosicionError,MovimientoInvalido
 class TestChess(unittest.TestCase):
 
     def setUp(self):
@@ -171,6 +172,66 @@ class TestChess(unittest.TestCase):
         """Verifica que se lance una excepción si no hay pieza en la posición."""
         with self.assertRaises(PiezaInexistente):
             self.__ajedrez__.movimientos("B5", "B4")
+
+
+    def test_mover_pieza_de_otro_color(self):
+        """Verifica que no se pueda mover una pieza del color incorrecto."""
+        self.__ajedrez__.__board__.setear_tablero(7, 0, Torre("negro", 7, 0))
+        self.__ajedrez__.cambio_de_turno()  
+        with self.assertRaises(MismoColorError):
+            self.__ajedrez__.movimientos("A8", "A7")
+
+    def test_pieza_inexistente(self):
+        """Verifica que se lance una excepción si no hay pieza en la posición."""
+        with self.assertRaises(PiezaInexistente):
+            self.__ajedrez__.movimientos("B5", "B4")
+
+
+    def test_movimiento_valido_cambio_turno(self):
+        """Verifica que el turno cambie después de un movimiento válido."""
+        
+        estado = self.__ajedrez__.movimientos("A2", "A3")
+
+        
+        self.assertEqual(estado, "En curso")
+
+        
+        self.assertEqual(self.__ajedrez__.turno_actual(), "NEGRO")
+
+    def test_movimiento_invalido(self):
+        """Verifica que un movimiento inválido lanza una excepción."""
+        
+        with self.assertRaises(MovimientoInvalido):
+            self.__ajedrez__.movimientos("A2", "A5")
+
+    def test_no_cambiar_turno_si_movimiento_fallido(self):
+        """Verifica que el turno no cambie si el movimiento es inválido."""
+        
+        with self.assertRaises(PiezaInexistente):
+            self.__ajedrez__.movimientos("A4", "A5")  
+
+        
+        self.assertEqual(self.__ajedrez__.turno_actual(), "BLANCO")
+
+    def test_estado_victoria(self):
+        """Simula un escenario de victoria y verifica el estado del juego."""
+        
+        self.__ajedrez__.__board__.limpiar_tablero()
+
+        
+        peon_blanco = Peon("blanco", 0, 0)
+        self.__ajedrez__.__board__.setear_tablero(0, 0, peon_blanco)
+
+      
+        estado = self.__ajedrez__.estado_del_juego()
+
+       
+        self.assertEqual(estado, "Victoria Blanca")
+
+
+
+
+
 
 if __name__ == "__main__":
     unittest.main()
