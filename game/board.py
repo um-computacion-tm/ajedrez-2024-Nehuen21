@@ -6,7 +6,8 @@ from game.caballo import Caballo
 from game.peon import Peon
 from game.rey import Rey
 from game.excepciones import (
-    AjedrezError, MovimientoInvalido, MismoColorError, PiezaInexistente, NoPodesComerAlRey
+    AjedrezError, MovimientoInvalido, MovimientoErrorPieza, 
+    MismoColorError, PiezaInexistente, NoPodesComerAlRey, PosicionError
 )
 
 class Board:
@@ -95,7 +96,11 @@ class Board:
     def encontrar_pieza(self, pieza_objetivo: Pieza):
         """Encuentra las coordenadas de una pieza específica en el tablero.
 
-  
+        Args:
+            pieza_objetivo (Pieza): La pieza a buscar.
+
+        Returns:
+            tuple[int, int, Pieza] | None: Coordenadas (x, y) y la pieza encontrada, o None si no se encuentra.
         """
         for x in range(8):
             for y in range(8):
@@ -106,6 +111,14 @@ class Board:
     def obtener_color(self, posicion):
         """Devuelve el color de la pieza en una posición específica.
 
+        Args:
+            posicion (tuple[int, int]): Coordenadas (x, y).
+
+        Returns:
+            str: Color de la pieza.
+
+        Raises:
+            PiezaInexistente: Si no hay ninguna pieza en la posición dada.
         """
         x, y = posicion
         pieza = self.obtener_pieza(x, y)
@@ -127,17 +140,16 @@ class Board:
         return contador
 
     def mover_pieza(self, origen, destino):
-        """Gestiona el movimiento de una pieza de origen a destino.
-
-        
-        """
+        """Valida y ejecuta el movimiento de una pieza."""
         try:
-            self.validar_movimiento(origen, destino)
-            self.ejecutar_movimiento(origen, destino)
-            return True
+            self.validar_movimiento(origen, destino)  
+            self.ejecutar_movimiento(origen, destino)  
+            return True  
         except AjedrezError as e:
-            print(f"Error: {str(e)}")
-            raise
+            print(f"Error: {e}")  
+            return False 
+
+
 
     def validar_movimiento(self, origen, destino):
         """Valida si el movimiento es permitido.
@@ -155,7 +167,7 @@ class Board:
             raise PiezaInexistente("No se encontró ninguna pieza en la posición de origen.")
         if isinstance(pieza_destino, Rey):
             raise NoPodesComerAlRey("No puedes capturar al rey del oponente.")
-        if not pieza_origen.movimiento_valido(destino[0], destino[1], self):
+        if not pieza_origen.movimiento_valido(destino[0], destino[1],self ):
             raise MovimientoInvalido("Movimiento inválido para esta pieza.")
         if pieza_destino and pieza_origen.decime_color() == pieza_destino.decime_color():
             raise MismoColorError("No puedes mover a una posición ocupada por otra pieza del mismo color.")
@@ -166,4 +178,19 @@ class Board:
 
     def ejecutar_movimiento(self, origen, destino):
         """Ejecuta el movimiento de una pieza en el tablero."""
+        
         pieza = self.obtener_pieza(*origen)
+    
+        if pieza is None:
+            raise PiezaInexistente(f"No hay ninguna pieza en la posición {origen}.")
+    
+        
+        self.setear_tablero(destino[0], destino[1], pieza)
+        self.setear_tablero(origen[0], origen[1], None)  
+    
+       
+        pieza.setear_posicion(*destino)
+    
+        print(f"Movimiento ejecutado: {pieza} desde {origen} a {destino}")
+
+        

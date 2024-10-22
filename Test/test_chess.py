@@ -5,7 +5,7 @@ from game.chess import Ajedrez
 from game.torre import Torre
 from game.rey import Rey
 from game.peon import Peon
-from game.excepciones import MismoColorError,PiezaInexistente,PosicionError,MovimientoInvalido
+from game.excepciones import MismoColorError,PiezaInexistente,MovimientoInvalido,PosicionError
 class TestChess(unittest.TestCase):
 
     def setUp(self):
@@ -118,12 +118,12 @@ class TestChess(unittest.TestCase):
 
     def test_turno_que_sigue(self):
         """Verifica que el método turno_que_sigue devuelva correctamente el próximo turno."""
-        
+        # Verificar que después del turno BLANCO, el siguiente sea NEGRO
         self.__ajedrez__.__turno_actual__ = "BLANCO"
         siguiente_turno = self.__ajedrez__.turno_que_sigue()
         self.assertEqual(siguiente_turno, "NEGRO", "El próximo turno debería ser NEGRO.")
 
-        
+        # Verificar que después del turno NEGRO, el siguiente sea BLANCO
         self.__ajedrez__.__turno_actual__ = "NEGRO"
         siguiente_turno = self.__ajedrez__.turno_que_sigue()
         self.assertEqual(siguiente_turno, "BLANCO", "El próximo turno debería ser BLANCO.")
@@ -146,34 +146,18 @@ class TestChess(unittest.TestCase):
     def test_translate_input(self):
         ajedrez = Ajedrez()
     
-        
-        self.assertEqual(ajedrez.translate_input("A1"), (0, 0))  
-        self.assertEqual(ajedrez.translate_input("A2"), (1, 0))  
-        self.assertEqual(ajedrez.translate_input("H8"), (7, 7))  
+        # Casos correctos
+        self.assertEqual(ajedrez.translate_input("A1"), (0, 0))  # Peón en fila inferior
+        self.assertEqual(ajedrez.translate_input("A2"), (1, 0))  # Peón blanco listo para moverse
+        self.assertEqual(ajedrez.translate_input("H8"), (7, 7))  # Torre negra
     
-       
+        # Casos inválidos
         with self.assertRaises(PosicionError):
-            ajedrez.translate_input("Z9")  
+            ajedrez.translate_input("Z9")  # Entrada fuera del rango
     
         with self.assertRaises(PosicionError):
-            ajedrez.translate_input("A")  
+            ajedrez.translate_input("A")  # Entrada incompleta
     
-    
-
-
-    def test_mover_pieza_de_otro_color(self):
-        """Verifica que no se pueda mover una pieza del color incorrecto."""
-        self.__ajedrez__.__board__.setear_tablero(7, 0, Torre("negro", 7, 0))
-        self.__ajedrez__.cambio_de_turno()  
-        with self.assertRaises(MismoColorError):
-            self.__ajedrez__.movimientos("A8", "A7")
-
-    def test_pieza_inexistente(self):
-        """Verifica que se lance una excepción si no hay pieza en la posición."""
-        with self.assertRaises(PiezaInexistente):
-            self.__ajedrez__.movimientos("B5", "B4")
-
-
     def test_mover_pieza_de_otro_color(self):
         """Verifica que no se pueda mover una pieza del color incorrecto."""
         self.__ajedrez__.__board__.setear_tablero(7, 0, Torre("negro", 7, 0))
@@ -215,7 +199,7 @@ class TestChess(unittest.TestCase):
 
     def test_estado_victoria(self):
         """Simula un escenario de victoria y verifica el estado del juego."""
-        
+
         self.__ajedrez__.__board__.limpiar_tablero()
 
         
@@ -227,7 +211,6 @@ class TestChess(unittest.TestCase):
 
        
         self.assertEqual(estado, "Victoria Blanca")
-
 
 
 

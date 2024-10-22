@@ -1,115 +1,67 @@
 import os
 from game.chess import Ajedrez
-from game.excepciones import *
-
+from game.excepciones import PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError
 
 class ClienteAjedrez:
+    """Interfaz para gestionar el flujo del juego de ajedrez."""
+
     def __init__(self):
-        """Inicializa la interfaz con una nueva instancia del juego."""
-        self.juego= Ajedrez()
-        self.game_over = False
-        self.resultado = None
-
-    def menu(self):
-        """
-        Muestra el menú principal y maneja la selección del usuario.
-        """
-        while True:
-            self.mostrar_menu_principal()
-            seleccion = input("Seleccione una opción: ").strip()
-            opcion = self.validar_opcion("menu_principal", seleccion)
-
-            if opcion == "Opción inválida":
-                print("\nOpción inválida. Intente nuevamente.\n")
-            elif opcion == "Salir":
-                print("\nJuego terminado.\n")
-                break
-            elif opcion == "Iniciar juego":
-                self.iniciar_nueva_partida()
-                if self.game_over:
-                    break
-    
-    def mostrar_menu_principal(self):
-        """Muestra las opciones del menú principal."""
-        print("\n----- Ajedrez UM -----")
-        print("1) Iniciar Juego")
-        print("2) Salir\n")   
-        
-    def validar_opcion(self, tipo_menu, opcion):
-        """
-        Valida las opciones del menú.
-        """
-        if tipo_menu == "menu_principal":
-            if opcion == "1":
-                return "Iniciar juego"
-            elif opcion == "2":
-                return "Salir"
-            else:
-                return "Opción inválida"
-        elif tipo_menu == "menu_turno":
-            if opcion in ["1", "2", "3"]:
-                return opcion
-            else:
-                return "Opción inválida"
-
-
-    def iniciar_nueva_partida(self):
-        """
-        Inicia una nueva partida de ajedrez.
-        """
+        """Inicializa la interfaz con una instancia de Ajedrez."""
         self.juego = Ajedrez()
         self.game_over = False
-        self.resultado = None
-        self.loop_juego()
-    
-    def loop_juego(self):
-        """
-        Ejecuta el bucle principal del juego hasta que termine.
-        """
+
+    def menu(self):
+        """Muestra el menú principal del juego."""
+        while True:
+            print('\n----- Ajedrez -----')
+            print('1) Iniciar Juego')
+            print('2) Salir\n')
+            
+            seleccion = input("Seleccione una opción: ").strip()
+            
+            if seleccion == "1":
+                self.iniciar_juego()
+            elif seleccion == "2":
+                print("\nJuego terminado.\n")
+                break
+            else:
+                print("\nOpción inválida. Intente nuevamente.\n")
+
+    def iniciar_juego(self):
+        """Inicia una nueva partida y ejecuta el bucle principal."""
+        self.juego = Ajedrez()
+        self.game_over = False
+
         while not self.game_over:
             self.mostrar_tablero_y_turno()
-    
-            try:
-                origen, destino = self.obtener_movimiento_usuario()
-                resultado = self.juego.movimientos(origen, destino)
-    
-                if resultado in ["Victoria Blanca", "Victoria Negra", "Empate"]:
-                    print(f"\n{resultado}\nJuego terminado.\n")
-                    self.game_over = True
-    
-            except (PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError) as e:
-                print(f"\nError: {e}\n")
-            except Exception as e:
-                print(f"\nError inesperado: {e}\n")
-
-
+            if not self.ejecutar_movimiento():
+                print("\nMovimiento inválido. Intente nuevamente.\n")
 
     def mostrar_tablero_y_turno(self):
-        """
-        Muestra el tablero y el turno actual.
-        """
-        self.limpiar_terminal()
+        """Limpia la terminal y muestra el tablero."""
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(f"\nTurno de {self.juego.turno_actual()}\n")
         self.juego.mostrar_tablero()
 
+    def ejecutar_movimiento(self):
+        """Solicita coordenadas y realiza un movimiento."""
+        try:
+            origen = input('Desde (ej: A2): ').strip()
+            destino = input('Hasta (ej: A3): ').strip()
 
-    def obtener_movimiento_usuario(self):
-        """
-        Solicita al usuario las coordenadas de origen y destino.
-        """
-        print('\nIngrese su movimiento:')
-        origen = input('Desde: ').strip()
-        destino = input('Hasta: ').strip()
-        return origen, destino
+            # Intentar realizar el movimiento
+            estado = self.juego.movimientos(origen, destino)
 
+            # Verificar si el juego ha terminado
+            if estado != "En curso":
+                print(f"\n{estado}\nJuego terminado.\n")
+                self.game_over = True
 
-    def limpiar_terminal(self):
-        """Limpia la pantalla de la terminal."""
-        os.system('cls' if os.name == 'nt' else 'clear')
+            return True  # Movimiento válido
 
-
-
-
+        except (PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError) as e:
+            print(f"\nError: {e}\n")
+            return False  # Movimiento inválido
 
 if __name__ == "__main__":
     cliente = ClienteAjedrez()

@@ -17,14 +17,11 @@ class Ajedrez:
     def turno_actual(self):
         """Devuelve el turno actual.
 
-        
         """
         return self.__turno_actual__
 
     def turno_que_sigue(self):
         """Devuelve el turno del siguiente jugador.
-
-        
         """
         return "NEGRO" if self.__turno_actual__ == "BLANCO" else "BLANCO"
 
@@ -68,35 +65,26 @@ class Ajedrez:
         return pieza
 
     def translate_input(self, input_str):
-        """Convierte una entrada como 'A1' a coordenadas internas del tablero.
+     """Convierte una entrada como 'A1' a coordenadas internas (fila, columna)."""
+     if len(input_str) != 2:
+         raise PosicionError("La entrada debe tener 2 caracteres, como 'A2'.")
 
-        
-        """
-        if len(input_str) != 2:
-            raise PosicionError("La entrada debe tener exactamente 2 caracteres, como 'A2'.")
+     letter_to_col = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7}
+     letter = input_str[0].upper()
+     num = input_str[1]
 
-        letter_to_col = {
-            'A': 0, 'B': 1, 'C': 2, 'D': 3,
-            'E': 4, 'F': 5, 'G': 6, 'H': 7
-        }
+     if letter not in letter_to_col:
+         raise PosicionError(f"Columna '{letter}' inválida. Debe estar entre A y H.")
+     col = letter_to_col[letter]
 
-        letter = input_str[0].upper()
-        num = input_str[1]
+     try:
+         row = 8 - int(num)  
+         if row < 0 or row > 7:
+             raise PosicionError("La fila debe estar entre 1 y 8.")
+         return (row, col)
+     except ValueError:
+         raise PosicionError(f"El segundo carácter '{num}' debe ser un número.")
 
-        if letter not in letter_to_col:
-            raise PosicionError(f"La columna '{letter}' es inválida. Debe estar entre A y H.")
-        col = letter_to_col[letter]
-
-        try:
-            row = int(num) - 1  # Ajustar para que '1' sea índice 0
-
-            if row < 0 or row > 7:
-                raise PosicionError("La fila debe estar entre 1 y 8.")
-
-            return (row, col)
-
-        except ValueError:
-            raise PosicionError(f"El segundo carácter '{num}' debe ser un número.")
 
     def movimientos(self, origen, destino):
         """Gestiona el proceso de mover una pieza en el tablero.
@@ -104,18 +92,17 @@ class Ajedrez:
        s
         """
         try:
-            # Convertir las entradas del usuario a coordenadas internas
+           
             coord_origen = self.translate_input(origen)
             coord_destino = self.translate_input(destino)
 
-            # Validar que la pieza en la posición de origen pertenece al turno actual
+           
             pieza = self.validar_pieza_turno(*coord_origen)
 
-            # Intentar mover la pieza
             if self.__board__.mover_pieza(coord_origen, coord_destino):
                 estado = self.estado_del_juego()
 
-                # Cambiar turno si el juego sigue en curso
+   
                 if estado == "En curso":
                     self.cambio_de_turno()
 
@@ -126,3 +113,7 @@ class Ajedrez:
         except (PiezaInexistente, MismoColorError, MovimientoInvalido) as e:
             print(f"\nError: {e}\n")
             raise
+
+
+
+    
