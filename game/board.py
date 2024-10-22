@@ -20,12 +20,6 @@ class Board:
     def obtener_pieza(self, x: int, y: int) -> 'Pieza':
         """Obtiene la pieza ubicada en las coordenadas (x, y) del tablero.
         
-        Args:
-            x (int): Coordenada de fila.
-            y (int): Coordenada de columna.
-
-        Returns:
-            Pieza | None: La pieza en la posición dada o None si no hay ninguna.
         """
         return self.__positions__[x][y]
 
@@ -144,10 +138,10 @@ class Board:
         try:
             self.validar_movimiento(origen, destino)  
             self.ejecutar_movimiento(origen, destino)  
-            return True  
+            return True  # Movimiento exitoso
         except AjedrezError as e:
-            print(f"Error: {e}")  
-            return False 
+            print(f"Error: {e}")  # Mostrar el error para depuración
+            return False  # Movimiento inválido
 
 
 
@@ -178,17 +172,17 @@ class Board:
 
     def ejecutar_movimiento(self, origen, destino):
         """Ejecuta el movimiento de una pieza en el tablero."""
-        
+        # Obtener la pieza en la posición de origen
         pieza = self.obtener_pieza(*origen)
     
         if pieza is None:
             raise PiezaInexistente(f"No hay ninguna pieza en la posición {origen}.")
     
-        
+        # Mover la pieza al destino
         self.setear_tablero(destino[0], destino[1], pieza)
-        self.setear_tablero(origen[0], origen[1], None)  
+        self.setear_tablero(origen[0], origen[1], None)  # Limpiar la posición original
     
-       
+        # Actualizar la posición interna de la pieza
         pieza.setear_posicion(*destino)
     
         print(f"Movimiento ejecutado: {pieza} desde {origen} a {destino}")

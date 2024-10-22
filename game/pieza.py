@@ -51,7 +51,12 @@ class Pieza:
     def camino_libre(self, coord_inicial, coord_final, constante, es_horizontal, board):
         """Verifica si el camino entre dos coordenadas está libre de otras piezas.
 
-        
+        Args:
+            coord_inicial (int): Coordenada inicial (fila o columna).
+            coord_final (int): Coordenada final (fila o columna).
+            constante (int): Valor fijo (fila o columna) que no cambia.
+            es_horizontal (bool): Indica si el movimiento es horizontal.
+            board (Board): Instancia del tablero para verificar posiciones.
 
         Returns:
             bool: True si el camino está libre, False en caso contrario.
@@ -75,7 +80,11 @@ class Pieza:
     def camino_horizontal_libre(self, x, y, x_nueva, board):
         """Verifica si el camino horizontal está libre de piezas.
 
-        
+        Args:
+            x (int): Coordenada inicial en el eje X.
+            y (int): Coordenada inicial en el eje Y.
+            x_nueva (int): Nueva coordenada en el eje X.
+            board (Board): Instancia del tablero.
 
         Returns:
             bool: True si el camino está libre, False en caso contrario.
@@ -85,7 +94,11 @@ class Pieza:
     def camino_vertical_libre(self, x, y, y_nueva, board):
         """Verifica si el camino vertical está libre de piezas.
 
-       
+        Args:
+            x (int): Coordenada inicial en el eje X.
+            y (int): Coordenada inicial en el eje Y.
+            y_nueva (int): Nueva coordenada en el eje Y.
+            board (Board): Instancia del tablero.
 
         Returns:
             bool: True si el camino está libre, False en caso contrario.
@@ -95,7 +108,12 @@ class Pieza:
     def movimiento_vertical(self, x, y, x_nueva, y_nueva, board):
         """Valida un movimiento vertical de la pieza.
 
-       
+        Args:
+            x (int): Coordenada inicial en el eje X.
+            y (int): Coordenada inicial en el eje Y.
+            x_nueva (int): Nueva coordenada en el eje X.
+            y_nueva (int): Nueva coordenada en el eje Y.
+            board (Board): Instancia del tablero.
 
         Returns:
             bool: True si el movimiento es válido, False en caso contrario.
@@ -113,7 +131,13 @@ class Pieza:
     def movimiento_horizontal(self, x, y, x_nueva, y_nueva, board):
         """Valida un movimiento horizontal de la pieza.
 
-        
+        Args:
+            x (int): Coordenada inicial en el eje X.
+            y (int): Coordenada inicial en el eje Y.
+            x_nueva (int): Nueva coordenada en el eje X.
+            y_nueva (int): Nueva coordenada en el eje Y.
+            board (Board): Instancia del tablero.
+
         Returns:
             bool: True si el movimiento es válido, False en caso contrario.
         """
@@ -130,7 +154,12 @@ class Pieza:
     def movimiento_diagonal(self, x, y, x_nueva, y_nueva, board):
         """Valida un movimiento diagonal de la pieza.
 
-        
+        Args:
+            x (int): Coordenada inicial en el eje X.
+            y (int): Coordenada inicial en el eje Y.
+            x_nueva (int): Nueva coordenada en el eje X.
+            y_nueva (int): Nueva coordenada en el eje Y.
+            board (Board): Instancia del tablero.
 
         Returns:
             bool: True si el movimiento es válido, False en caso contrario.
