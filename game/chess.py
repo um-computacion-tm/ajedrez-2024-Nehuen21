@@ -1,5 +1,6 @@
 from game.board import Board
-from game.excepciones import PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError
+from game.excepciones import PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError, NoPodesComerAlRey
+from game.rey import Rey  
 
 class Ajedrez:
     """Clase principal que gestiona el estado del juego de ajedrez."""
@@ -9,6 +10,8 @@ class Ajedrez:
         self.__board__ = Board()
         self.__turno_actual__ = "BLANCO"
         self.__board__.setear_piezas()
+        self.rey_blanco_capturado = False
+        self.rey_negro_capturado = False
 
     def cambio_de_turno(self):
         """Cambia el turno al otro jugador."""
@@ -26,19 +29,16 @@ class Ajedrez:
         return "NEGRO" if self.__turno_actual__ == "BLANCO" else "BLANCO"
 
     def estado_del_juego(self):
-        """Verifica el estado del juego en función de las piezas restantes.
-
-        
-        """
+        """Verifica el estado del juego en función de las piezas restantes."""
         piezas = self.__board__.contar_piezas()
         print(f"Piezas en el tablero: {piezas}")  # Debugging
 
-        if piezas == [1, 1]:
-            return "Empate"
-        elif piezas[0] == 0:
+        if self.rey_blanco_capturado:
             return "Victoria Negra"
-        elif piezas[1] == 0:
+        elif self.rey_negro_capturado:
             return "Victoria Blanca"
+        elif piezas == [1, 1]:
+            return "Empate"
 
         return "En curso"
 
@@ -87,33 +87,35 @@ class Ajedrez:
 
 
     def movimientos(self, origen, destino):
-        """Gestiona el proceso de mover una pieza en el tablero.
+     """Gestiona el proceso de mover una pieza en el tablero."""
+     try:
+         coord_origen = self.translate_input(origen)
+         coord_destino = self.translate_input(destino)
 
-       s
-        """
-        try:
-           
-            coord_origen = self.translate_input(origen)
-            coord_destino = self.translate_input(destino)
+         pieza = self.validar_pieza_turno(*coord_origen)
 
-           
-            pieza = self.validar_pieza_turno(*coord_origen)
+         # Verifica si el destino tiene un rey
+         pieza_destino = self.__board__.obtener_pieza(*coord_destino)
+         if isinstance(pieza_destino, Rey):
+             raise NoPodesComerAlRey("No puedes capturar al rey.")
 
-            if self.__board__.mover_pieza(coord_origen, coord_destino):
-                estado = self.estado_del_juego()
+         # Si no es un rey, procede con la lógica de movimiento
+         if self.__board__.mover_pieza(coord_origen, coord_destino):
+             estado = self.estado_del_juego()
+             if estado == "En curso":
+                 self.cambio_de_turno()
 
-   
-                if estado == "En curso":
-                    self.cambio_de_turno()
+             return estado
+         else:
+             raise MovimientoInvalido("El movimiento no se pudo completar.")
 
-                return estado
-            else:
-                raise MovimientoInvalido("El movimiento no se pudo completar.")
-
-        except (PiezaInexistente, MismoColorError, MovimientoInvalido) as e:
-            print(f"\nError: {e}\n")
-            raise
-
+     except (PiezaInexistente, MismoColorError, MovimientoInvalido, NoPodesComerAlRey) as e:
+         print(f"\nError: {e}\n")
+         raise
 
 
-    
+
+
+
+
+        

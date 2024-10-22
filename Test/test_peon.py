@@ -15,8 +15,11 @@ class TestPeon(unittest.TestCase):
         self.assertTrue(resultado)
 
     
+
+
+
     def test_movimiento_valido_diagonal(self):
-        
+        # Coloca una pieza blanca para que el peón negro pueda capturarla
         self.board.setear_tablero(5, 2, Peon("blanco", 5, 2))
         resultado = self.__peon_negro__.movimiento_valido(5, 2, self.board)
         self.assertTrue(resultado)

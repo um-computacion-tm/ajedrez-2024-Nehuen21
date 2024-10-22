@@ -20,6 +20,12 @@ class Board:
     def obtener_pieza(self, x: int, y: int) -> 'Pieza':
         """Obtiene la pieza ubicada en las coordenadas (x, y) del tablero.
         
+        Args:
+            x (int): Coordenada de fila.
+            y (int): Coordenada de columna.
+
+        Returns:
+            Pieza | None: La pieza en la posición dada o None si no hay ninguna.
         """
         return self.__positions__[x][y]
 

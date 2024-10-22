@@ -1,6 +1,6 @@
 import os
 from game.chess import Ajedrez
-from game.excepciones import PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError
+from game.excepciones import PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError,NoPodesComerAlRey
 
 class ClienteAjedrez:
     """Interfaz para gestionar el flujo del juego de ajedrez."""
@@ -48,6 +48,8 @@ class ClienteAjedrez:
         try:
             origen = input('Desde (ej: A2): ').strip()
             destino = input('Hasta (ej: A3): ').strip()
+            coord_origen = self.juego.translate_input(origen)
+
 
             # Intentar realizar el movimiento
             estado = self.juego.movimientos(origen, destino)
@@ -55,13 +57,16 @@ class ClienteAjedrez:
             # Verificar si el juego ha terminado
             if estado != "En curso":
                 print(f"\n{estado}\nJuego terminado.\n")
-                self.game_over = True
 
             return True  # Movimiento válido
-
-        except (PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError) as e:
+            
+        except (PiezaInexistente, MismoColorError, MovimientoInvalido, NoPodesComerAlRey) as e:
             print(f"\nError: {e}\n")
             return False  # Movimiento inválido
+        except PosicionError as e:
+            print(e)
+            return False 
+
 
 if __name__ == "__main__":
     cliente = ClienteAjedrez()
