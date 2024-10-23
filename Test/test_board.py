@@ -109,10 +109,10 @@ class Test__Board__(unittest.TestCase):
     def test_contar_piezas_inicial(self):
      """Verifica que el conteo inicial de piezas sea correcto."""
 
-     # Obtenemos la lista con el conteo de piezas
-     contador = self.__board__.contar_piezas()  # Debería devolver [16, 16]
+    
+     contador = self.__board__.contar_piezas()  
 
-     # Comprobamos que el resultado es el esperado
+     
      self.assertEqual(contador, [16, 16], "El conteo inicial de piezas no es correcto.")
 
        

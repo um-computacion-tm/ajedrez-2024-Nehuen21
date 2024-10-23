@@ -1,100 +1,54 @@
-"""import unittest
-from unittest.mock import patch
-from game.cliente import ClienteAjedrez
-class TestCliente(unittest.TestCase):
+import unittest
+from unittest.mock import patch, MagicMock
+from game.cliente import ClienteAjedrez  
+from game.excepciones import PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError, NoPodesComerAlRey
 
-    def setUp(self):
-        self.__cliente__ = ClienteAjedrez()
+class TestClienteAjedrez(unittest.TestCase):    
+    @patch('builtins.print')
+    @patch('game.chess.Ajedrez')
+    def test_ejecutar_movimiento_error_pieza_inexistente(self, mock_ajedrez, mock_print):
+        cliente = ClienteAjedrez()
+        cliente.juego = mock_ajedrez
+        mock_ajedrez.movimientos.side_effect = PiezaInexistente("No hay ninguna pieza en la posición.")
+        with patch('builtins.input', side_effect=['A2', 'A3']):
+            result = cliente.ejecutar_movimiento()
+            self.assertFalse(result)
+            mock_print.assert_any_call("\nError: No hay ninguna pieza en la posición.\n")
 
-    @patch("builtins.input", side_effect=["1", "2"])
-    def test_menu_seleccion_iniciar_y_salir(self, mock_input):
-       
-        with patch("builtins.print") as mock_print:
-            self.__cliente__.menu()
+    @patch('builtins.print')
+    @patch('game.chess.Ajedrez')
+    def test_ejecutar_movimiento_error_mismo_color(self, mock_ajedrez, mock_print):
+        cliente = ClienteAjedrez()
+        cliente.juego = mock_ajedrez
+        mock_ajedrez.movimientos.side_effect = MismoColorError("No puedes mover una pieza de color.")
+        with patch('builtins.input', side_effect=['A2', 'A3']):
+            result = cliente.ejecutar_movimiento()
+            self.assertFalse(result)
+            mock_print.assert_any_call("\nError: No puedes mover una pieza de color.\n")
 
-            # Verifica que las opciones del menú se imprimen correctamente
-            mock_print.assert_any_call("\n----- Ajedrez UM -----")
-            mock_print.assert_any_call("\nComenzando nueva partida...\n")  # Ajuste aquí
-            mock_print.assert_any_call("\nJuego terminado.\n")  # Ajuste aquí
+    @patch('builtins.print')
+    @patch('game.chess.Ajedrez')
+    def test_ejecutar_movimiento_error_movimiento_invalido(self, mock_ajedrez, mock_print):
+        cliente = ClienteAjedrez()
+        cliente.juego = mock_ajedrez
+        mock_ajedrez.movimientos.side_effect = MovimientoInvalido("El movimiento no se pudo completar.")
+        with patch('builtins.input', side_effect=['A2', 'A3']):
+            result = cliente.ejecutar_movimiento()
+            self.assertFalse(result)
+            mock_print.assert_any_call("\nError: El movimiento no se pudo completar.\n")
 
-
-
-    @patch("builtins.input", side_effect=["3", "2"])
-    def test_menu_opcion_invalida(self, mock_input):
-        
-        with patch("builtins.print") as mock_print:
-            self.__cliente__.menu()
-            # Verifica que se muestra el mensaje de opción inválida
-            mock_print.assert_any_call("\nOpción inválida. Intente de nuevo.\n")
-
-
-    def test_validar_opcion_salir(self):
-       
-        resultado = self.__cliente__.validar_opcion("menu_principal", "2")
-        self.assertEqual(resultado, "Salir")
-
-    @patch("builtins.print")
-    def test_iniciar_juego_muestra_mensaje(self, mock_print):
-        
-        self.__cliente__.iniciar_juego()
-        mock_print.assert_any_call("\nComenzando nueva partida...\n")
-
-
-
-        
-if __name__ == "__main__":
-    unittest.main()
-
- self,
-     mock_chess_move,
-     mock_print,
-     mock_input,
- ): #
-     chess = Chess()
-     play(chess)
-     self.assertEqual(mock_input.call_count, 1)
-     self.assertEqual(mock_print.call_count, 3)
-     self.assertEqual(mock_chess_move.call_count, 0)
- @patch(  # este patch controla lo que hace el input
-     'builtins.input',
-     side_effect=['1', '1', '2', 'hola'], 
- )
- @patch('builtins.print') 
- @patch.object(Chess, 'move')
- def test_more_not_happy_path(
-     self,
-     mock_chess_move,
-     mock_print,
-     mock_input,
- ): 
-     chess = Chess()
-     play(chess)
-     self.assertEqual(mock_input.call_count, 4)
-     self.assertEqual(mock_print.call_count, 3)
-     self.assertEqual(mock_chess_move.call_count, 0) """
-
-
-
- # @patch(  # este patch controla lo que hace el input
- #     'builtins.input',
- #     side_effect=['1', '1', '2', '1'], # estos son los valores que simula lo que ingresaria el usuario
- # )
- # @patch('builtins.print') # este patch controla lo que hace el print
- # @patch.object(
- #     Chess,
- #     'move',
- #     side_effect=InvalidMove(),
- # )
- # def test_invalid_move(
- #     self,
- #     mock_chess_move,
- #     mock_print,
- #     mock_input,
- # ): #
- #     chess = Chess()
- #     play(chess)
- #     self.assertEqual(mock_input.call_count, 4)
- #     self.assertEqual(mock_print.call_count, 2)
- #     self.assertEqual(mock_chess_move.call_count, 1)""" 
+    @patch('builtins.print')
+    @patch('game.chess.Ajedrez')
+    def test_ejecutar_movimiento_error_no_podes_comer_al_rey(self, mock_ajedrez, mock_print):
+        cliente = ClienteAjedrez()
+        cliente.juego = mock_ajedrez
+        mock_ajedrez.movimientos.side_effect = NoPodesComerAlRey("No puedes capturar al rey.")
+        with patch('builtins.input', side_effect=['A2', 'A3']):
+            result = cliente.ejecutar_movimiento()
+            self.assertFalse(result)
+            mock_print.assert_any_call("\nError: No puedes capturar al rey.\n")
 
  
+    
+if __name__ == '__main__':
+    unittest.main()

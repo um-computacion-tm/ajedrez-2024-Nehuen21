@@ -19,23 +19,23 @@ class Peon(Pieza):
             bool: True si el movimiento es válido, False en caso contrario.
         """
         x_actual, y_actual = self.dame_posicion()
-        # Determinar dirección de movimiento basada en el color
+        
         direccion = 1 if self.decime_color() == "blanco" else -1
-        fila_inicial = 1 if self.decime_color() == "blanco" else 6  # Filas de inicio de los peones
+        fila_inicial = 1 if self.decime_color() == "blanco" else 6  
     
-        # Movimiento hacia adelante
+        
         if x_nueva == x_actual + direccion and y_nueva == y_actual:
-            return board.obtener_pieza(x_nueva, y_nueva) is None  # Movimiento simple
+            return board.obtener_pieza(x_nueva, y_nueva) is None  
     
-        # Doble movimiento
+        
         if x_actual == fila_inicial and x_nueva == x_actual + 2 * direccion and y_nueva == y_actual:
             return (board.obtener_pieza(x_actual + direccion, y_actual) is None and 
-                    board.obtener_pieza(x_nueva, y_nueva) is None)  # Ambas casillas deben estar vacías
+                    board.obtener_pieza(x_nueva, y_nueva) is None)  
     
-        # Captura diagonal
+        
         if x_nueva == x_actual + direccion and abs(y_nueva - y_actual) == 1:
-            return board.obtener_pieza(x_nueva, y_nueva) is not None  # Debe haber una pieza del color opuesto
+            return board.obtener_pieza(x_nueva, y_nueva) is not None  #
     
-        return False  # Movimiento inválido
+        return False  
     
     
