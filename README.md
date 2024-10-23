@@ -20,6 +20,7 @@
 - Este Ajedrez al ejecutarlo y jugar, recien toma la victoria de la pieza ganadora despues de hacer otro movimiento al haberse comido al rey, no supe como solucionar esto asi que quedo asi
 
 - Este Ajedrez no tienen en cuenta el jaquemate, tablas,promocion de peones, ni el enroque
+- Se me hizo una breve confusion entre la terminal y los iconos provocando una leve confusion entre las peizas blancas y negras. Las piezas blancas en este caso son las que estan por encima del tablero por ejemplo la torre blanca estaria en  A8 mientras que la negra A1
 
 # Comandos para DOCKER
 
