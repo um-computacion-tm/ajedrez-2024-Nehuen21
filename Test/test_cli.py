@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from game.cliente import ClienteAjedrez  # Asegúrate de que la ruta sea correcta
-from game.excepciones import PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError, NoPodesComerAlRey
+from game.cliente import ClienteAjedrez  
+from game.excepciones import PiezaInexistente, MismoColorError, MovimientoInvalido,  NoPodesComerAlRey
 
 class TestClienteAjedrez(unittest.TestCase):   
 
@@ -32,7 +32,7 @@ class TestClienteAjedrez(unittest.TestCase):
                 self.ejecutar_movimiento_con_error(mock_ajedrez, error, mensaje)
 
 
-    # Nuevo: Prueba para opción inválida
+   
     @patch('builtins.input', side_effect=['3', '2'])
     @patch('builtins.print')
     def test_menu_opcion_invalida(self, mock_print, mock_input):
@@ -40,7 +40,7 @@ class TestClienteAjedrez(unittest.TestCase):
         self.__cliente__.menu()
         mock_print.assert_any_call("\nOpción inválida. Intente nuevamente.\n")
 
-    # Nuevo: Prueba para la opción "Salir"
+   
     @patch('builtins.input', side_effect=['2'])
     @patch('builtins.print')
     def test_menu_salir(self, mock_print, mock_input):
@@ -49,7 +49,12 @@ class TestClienteAjedrez(unittest.TestCase):
         mock_print.assert_any_call("\nJuego terminado.\n")
  
 
-    
+    @patch('builtins.print')
+    @patch('builtins.input', side_effect=['2'])  
+    def test_menu_opcion_salir(self, mock_input, mock_print):
+        """Verifica que se salga del menú al seleccionar la opción '2'."""
+        self.__cliente__.menu()
+        mock_print.assert_any_call("\nJuego terminado.\n")  
    
         
 
