@@ -14,7 +14,7 @@ class TestPeon(unittest.TestCase):
 
     def test_movimiento_valido_dos_casillas_adelante(self):
         """Verifica que un peón blanco puede moverse dos casillas adelante desde su posición inicial."""
-        resultado = self.__peon_blanco__.movimiento_valido(1, 3, self.board)  
+        resultado = self.__peon_blanco__.movimiento_valido(3, 3, self.board)  
         self.assertTrue(resultado)
 
 
