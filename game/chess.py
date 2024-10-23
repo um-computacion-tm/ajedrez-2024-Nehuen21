@@ -94,12 +94,12 @@ class Ajedrez:
 
          pieza = self.validar_pieza_turno(*coord_origen)
 
-         # Verifica si el destino tiene un rey
+         
          pieza_destino = self.__board__.obtener_pieza(*coord_destino)
          if isinstance(pieza_destino, Rey):
              raise NoPodesComerAlRey("No puedes capturar al rey.")
 
-         # Si no es un rey, procede con la lógica de movimiento
+       
          if self.__board__.mover_pieza(coord_origen, coord_destino):
              estado = self.estado_del_juego()
              if estado == "En curso":

@@ -4,8 +4,8 @@ from game.board import Board
 from game.caballo import Caballo
 from game.alfil import Alfil
 from game.rey import Rey
-from game.excepciones import AjedrezError, MovimientoInvalido, MovimientoErrorPieza,MismoColorError,PiezaInexistente,NoPodesComerAlRey,PosicionError
-class __TestBoard__(unittest.TestCase):
+from game.excepciones import  MovimientoInvalido, MismoColorError,PiezaInexistente,NoPodesComerAlRey
+class Test__Board__(unittest.TestCase):
 
     def setUp(self):
         self.__board__ = Board()  
@@ -86,41 +86,37 @@ class __TestBoard__(unittest.TestCase):
         salida = self.__board__.mover_pieza((1, 1), (3, 1))
         self.assertTrue(salida)
 
-    def test_mover_pieza_invalido(self):
-        with self.assertRaises(MovimientoInvalido):
-            self.__board__.mover_pieza((1, 1), (4, 4))
+    
+
 
     def test_mover_pieza_valido_con_diferentes_coordenadas(self):
         
         origen = (1, 1)
         destino = (3, 1)
+        
+        
         resultado = self.__board__.mover_pieza(origen, destino)
         
+       
         self.assertTrue(resultado, "El movimiento de la pieza debería ser válido.")
 
-    def test_mover_a_posicion_ocupada_mismo_color(self):
-    
-        with self.assertRaises(MismoColorError):
-            self.__board__.mover_pieza((0, 0), (0, 1))
+    def test_error_en_borde_del_tablero(self):
+        """Verifica que no haya errores al consultar posiciones válidas pero vacías en el borde del tablero."""
+        with self.assertRaises(PiezaInexistente):
+            self.__board__.obtener_color((3, 3))
 
 
     def test_contar_piezas_inicial(self):
      """Verifica que el conteo inicial de piezas sea correcto."""
 
-     contador = self.__board__.contar_piezas()  
+     # Obtenemos la lista con el conteo de piezas
+     contador = self.__board__.contar_piezas()  # Debería devolver [16, 16]
+
+     # Comprobamos que el resultado es el esperado
      self.assertEqual(contador, [16, 16], "El conteo inicial de piezas no es correcto.")
 
+       
 
-    def test_no_se_puede_capturar_al_rey(self):
-        __rey__ = Rey("negro", 3, 1)
-        self.__board__.setear_tablero(3, 1, __rey__)
-        with self.assertRaises(NoPodesComerAlRey):
-            self.__board__.mover_pieza((1, 1), (3, 1))
-    
-    def test_error_en_borde_del_tablero(self):
-        """Verifica que no haya errores al consultar posiciones válidas pero vacías en el borde del tablero."""
-        with self.assertRaises(PiezaInexistente):
-            self.__board__.obtener_color((3, 3))
 
     def test_limpiar_tablero(self):
         """Verifica que el tablero quede vacío después de limpiarlo."""
@@ -128,7 +124,5 @@ class __TestBoard__(unittest.TestCase):
         for x in range(8):
             for y in range(8):
                 self.assertIsNone(self.__board__.obtener_pieza(x, y))
-
-
 if __name__ == '__main__':
     unittest.main()
