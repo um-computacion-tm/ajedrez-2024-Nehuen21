@@ -1,54 +1,66 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from game.cliente import ClienteAjedrez  
+from game.cliente import ClienteAjedrez  # Asegúrate de que la ruta sea correcta
 from game.excepciones import PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError, NoPodesComerAlRey
 
-class TestClienteAjedrez(unittest.TestCase):    
-    @patch('builtins.print')
-    @patch('game.chess.Ajedrez')
-    def test_ejecutar_movimiento_error_pieza_inexistente(self, mock_ajedrez, mock_print):
-        cliente = ClienteAjedrez()
-        cliente.juego = mock_ajedrez
-        mock_ajedrez.movimientos.side_effect = PiezaInexistente("No hay ninguna pieza en la posición.")
-        with patch('builtins.input', side_effect=['A2', 'A3']):
-            result = cliente.ejecutar_movimiento()
-            self.assertFalse(result)
-            mock_print.assert_any_call("\nError: No hay ninguna pieza en la posición.\n")
+class TestClienteAjedrez(unittest.TestCase):   
 
-    @patch('builtins.print')
-    @patch('game.chess.Ajedrez')
-    def test_ejecutar_movimiento_error_mismo_color(self, mock_ajedrez, mock_print):
-        cliente = ClienteAjedrez()
-        cliente.juego = mock_ajedrez
-        mock_ajedrez.movimientos.side_effect = MismoColorError("No puedes mover una pieza de color.")
-        with patch('builtins.input', side_effect=['A2', 'A3']):
-            result = cliente.ejecutar_movimiento()
-            self.assertFalse(result)
-            mock_print.assert_any_call("\nError: No puedes mover una pieza de color.\n")
+    def setUp(self):
+        self.__cliente__ = ClienteAjedrez() 
+    def ejecutar_movimiento_con_error(self, mock_ajedrez, error, mensaje_esperado):
+        """Método auxiliar para ejecutar movimientos que disparan excepciones."""
+        self.__cliente__.juego = mock_ajedrez
+        mock_ajedrez.movimientos.side_effect = error
 
-    @patch('builtins.print')
-    @patch('game.chess.Ajedrez')
-    def test_ejecutar_movimiento_error_movimiento_invalido(self, mock_ajedrez, mock_print):
-        cliente = ClienteAjedrez()
-        cliente.juego = mock_ajedrez
-        mock_ajedrez.movimientos.side_effect = MovimientoInvalido("El movimiento no se pudo completar.")
-        with patch('builtins.input', side_effect=['A2', 'A3']):
-            result = cliente.ejecutar_movimiento()
+        with patch('builtins.input', side_effect=['A2', 'A3']), patch('builtins.print') as mock_print:
+            result = self.__cliente__.ejecutar_movimiento()
             self.assertFalse(result)
-            mock_print.assert_any_call("\nError: El movimiento no se pudo completar.\n")
+            mock_print.assert_any_call(f"\nError: {mensaje_esperado}\n")
 
-    @patch('builtins.print')
     @patch('game.chess.Ajedrez')
-    def test_ejecutar_movimiento_error_no_podes_comer_al_rey(self, mock_ajedrez, mock_print):
-        cliente = ClienteAjedrez()
-        cliente.juego = mock_ajedrez
-        mock_ajedrez.movimientos.side_effect = NoPodesComerAlRey("No puedes capturar al rey.")
-        with patch('builtins.input', side_effect=['A2', 'A3']):
-            result = cliente.ejecutar_movimiento()
-            self.assertFalse(result)
-            mock_print.assert_any_call("\nError: No puedes capturar al rey.\n")
+    def test_ejecutar_movimiento_errores(self, mock_ajedrez):
+        """Test parametrizado para varios errores de movimiento."""
+        errores = [
+            (PiezaInexistente("No hay ninguna pieza en la posición."), "No hay ninguna pieza en la posición."),
+            (MismoColorError("No puedes mover una pieza de color."), "No puedes mover una pieza de color."),
+            (MovimientoInvalido("El movimiento no se pudo completar."), "El movimiento no se pudo completar."),
+            (NoPodesComerAlRey("No puedes capturar al rey."), "No puedes capturar al rey."),
+        ]
 
+        for error, mensaje in errores:
+            with self.subTest(error=error):
+                self.ejecutar_movimiento_con_error(mock_ajedrez, error, mensaje)
+
+
+    # Nuevo: Prueba para opción inválida
+    @patch('builtins.input', side_effect=['3', '2'])
+    @patch('builtins.print')
+    def test_menu_opcion_invalida(self, mock_print, mock_input):
+        """Verifica que se maneje una opción inválida en el menú."""
+        self.__cliente__.menu()
+        mock_print.assert_any_call("\nOpción inválida. Intente nuevamente.\n")
+
+    # Nuevo: Prueba para la opción "Salir"
+    @patch('builtins.input', side_effect=['2'])
+    @patch('builtins.print')
+    def test_menu_salir(self, mock_print, mock_input):
+        """Verifica que la opción 'Salir' funcione correctamente."""
+        self.__cliente__.menu()
+        mock_print.assert_any_call("\nJuego terminado.\n")
  
+
     
+   
+        
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     unittest.main()
