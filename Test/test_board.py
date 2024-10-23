@@ -124,5 +124,13 @@ class Test__Board__(unittest.TestCase):
         for x in range(8):
             for y in range(8):
                 self.assertIsNone(self.__board__.obtener_pieza(x, y))
+
+
+    def test_obtener_color_pieza_inexistente(self):
+        
+        with self.assertRaises(PiezaInexistente) as context:
+            self.__board__.obtener_color((5, 5))  
+        self.assertEqual(str(context.exception), "No hay ninguna pieza en la posición (5, 5).")
+
 if __name__ == '__main__':
     unittest.main()
