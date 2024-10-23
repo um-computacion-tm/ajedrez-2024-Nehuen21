@@ -131,3 +131,11 @@
 ### Borrado
 - lineas vacias de codigo y comentarios, no se borro nada del codigo original
 
+### [V 0.4.2] - 2024/10/21
+### Añadido
+
+- docstrings a metodos que faltaban
+
+### boarrdo
+
+- lineas de comentarios

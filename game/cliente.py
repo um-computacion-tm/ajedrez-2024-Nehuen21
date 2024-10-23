@@ -1,58 +1,73 @@
 import os
 from game.chess import Ajedrez
-from game.excepciones import *
-
+from game.excepciones import PiezaInexistente, MismoColorError, MovimientoInvalido, PosicionError,NoPodesComerAlRey
 
 class ClienteAjedrez:
+    """Interfaz para gestionar el flujo del juego de ajedrez."""
+
     def __init__(self):
-        """Inicializa la interfaz con una nueva instancia del juego."""
-        self.__juego__ = Ajedrez()
+        """Inicializa la interfaz con una instancia de Ajedrez."""
+        self.juego = Ajedrez()
         self.game_over = False
 
     def menu(self):
-        """Despliega el menú principal y maneja la selección del usuario."""
+        """Muestra el menú principal del juego."""
         while True:
-            self.mostrar_menu_principal()
-            seleccion = input("Seleccione una opción: ")
-            print(f"Seleccionado: {seleccion}")  # Debug
-            opcion = self.validar_opcion("menu_principal", seleccion)
-            print(f"Opción validada: {opcion}")  # Debug
-            if opcion == "Opción inválida":
-                print("\nOpción inválida. Intente de nuevo.\n")
-            elif opcion == "Salir":
+            print('\n----- Ajedrez -----')
+            print('1) Iniciar Juego')
+            print('2) Salir\n')
+            
+            seleccion = input("Seleccione una opción: ").strip()
+            
+            if seleccion == "1":
+                self.iniciar_juego()
+            elif seleccion == "2":
                 print("\nJuego terminado.\n")
                 break
-            elif opcion == "Iniciar juego":
-                self.iniciar_juego()
-                if self.game_over:
-                    break
-
-    def mostrar_menu_principal(self):
-        """Muestra las opciones del menú principal."""
-        print("\n----- Ajedrez UM -----")
-        print("1) Iniciar Juego")
-        print("2) Salir\n")
-
-    def validar_opcion(self, tipo_menu, opcion):
-        """Valida las opciones seleccionadas en diferentes menús."""
-        if tipo_menu == "menu_principal":
-            if opcion == "1":
-                return "Iniciar juego"
-            elif opcion == "2":
-                return "Salir"
             else:
-                return "Opción inválida"
-
+                print("\nOpción inválida. Intente nuevamente.\n")
 
     def iniciar_juego(self):
-        """Inicia una nueva partida."""
-        self.__juego__ = Ajedrez()
+        """Inicia una nueva partida y ejecuta el bucle principal."""
+        self.juego = Ajedrez()
         self.game_over = False
-        print("\nComenzando nueva partida...\n")  # Este mensaje debe imprimirse
+
+        while not self.game_over:
+            self.mostrar_tablero_y_turno()
+            if not self.ejecutar_movimiento():
+                print("\nMovimiento inválido. Intente nuevamente.\n")
+
+    def mostrar_tablero_y_turno(self):
+        """Limpia la terminal y muestra el tablero."""
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(f"\nTurno de {self.juego.turno_actual()}\n")
+        self.juego.mostrar_tablero()
+
+    def ejecutar_movimiento(self):
+        """Solicita coordenadas y realiza un movimiento."""
+        try:
+            origen = input('Desde (ej: A2): ').strip()
+            destino = input('Hasta (ej: A3): ').strip()
+            coord_origen = self.juego.translate_input(origen)
 
 
+            # Intentar realizar el movimiento
+            estado = self.juego.movimientos(origen, destino)
 
-    
+            # Verificar si el juego ha terminado
+            if estado != "En curso":
+                print(f"\n{estado}\nJuego terminado.\n")
+
+            return True  # Movimiento válido
+            
+        except (PiezaInexistente, MismoColorError, MovimientoInvalido, NoPodesComerAlRey) as e:
+            print(f"\nError: {e}\n")
+            return False  # Movimiento inválido
+        except PosicionError as e:
+            print(e)
+            return False 
+
+
 if __name__ == "__main__":
     cliente = ClienteAjedrez()
     cliente.menu()
