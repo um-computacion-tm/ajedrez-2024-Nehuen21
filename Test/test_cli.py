@@ -56,16 +56,5 @@ class TestClienteAjedrez(unittest.TestCase):
         self.__cliente__.menu()
         mock_print.assert_any_call("\nJuego terminado.\n")  
    
-        
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     unittest.main()

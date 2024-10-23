@@ -14,3 +14,15 @@
 - Nehuen Donozo ing informatica
 - legajo 62325
 - @Nehuen21
+
+# Observaciones
+
+- Este Ajedrez al ejecutarlo y jugar, recien toma la victoria de la pieza ganadora despues de hacer otro movimiento al haberse comido al rey, no supe como solucionar esto asi que quedo asi
+
+- Este Ajedrez no tienen en cuenta el jaquemate, tablas,promocion de peones, ni el enroque
+
+# Comandos para DOCKER
+
+1- docker buildx build -t ajedrez-2024-Nehuen21 .
+
+2- docker run -i ajedrez-2024-Nehuen21
